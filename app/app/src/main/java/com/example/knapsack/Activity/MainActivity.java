@@ -70,61 +70,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermission();
+
         initview();
 
         Intent intent = getIntent();
         name = intent.getStringExtra("username");
         username.setText("欢迎您！"+name);
 
-        musicAdapter = new MusicAdapter(MainActivity.this,musicmesList);
-        loadLocalMusicData();
-        listView.setAdapter(musicAdapter);
-
-        Intent intent1 = new Intent(this, MusicplayService.class);//创建意图对象
-        conn = new MyServiceConn();//创建服务连接对象
-        bindService(intent1, conn, BIND_AUTO_CREATE);  //绑定服务
+        dbHelper = new DBManager(this);
+        dbHelper.openDatabase();
+        dbHelper.closeDatabase();
 
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //获取当前播放的位置
-                playPosition = position;
-                Musicmes musicmes = musicmesList.get(position);
-                //显示当前播放歌曲信息
-                singer.setText(musicmes.getSinger());
-                music.setText(musicmes.getSongname());
-                album.setText(musicmes.getMmusicAlbum());
-                //停止音乐播放
-                musicControl.stopMusic();
-
-                //重置多媒体播放器
-                // mediaPlayer.reset();
-                //设置新的路径
-                // mediaPlayer.setDataSource(musicmes.getPath());
-                musicControl.playItemMusic(musicmes.getPath());
-
-            }
-        });
-    }
-
-
-    public void LastNextMusic(Musicmes musicmes)
-    {
-        //显示当前播放歌曲信息
-        singer.setText(musicmes.getSinger());
-        music.setText(musicmes.getSongname());
-        album.setText(musicmes.getMmusicAlbum());
-        //停止音乐播放
-        musicControl.stopMusic();
-
-        //重置多媒体播放器
-        //mediaPlayer.reset();
-        //设置新的路径
-
-        musicControl.playItemMusic(musicmes.getPath());
 
 
     }
@@ -161,44 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ban.setOnClickListener(this);
         ord.setOnClickListener(this);
         alb.setOnClickListener(this);
-        //为滑动条添加事件监听
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {                          //滑动条进度改变时，会调用此方法
-                if (progress == seekBar.getMax()) { //当滑动条滑到末端时
-                    if(playsort == 0)
-                    {
-                        if(playPosition >= 0 && playPosition != musicmesList.size() - 1)
-                        {
-                            playPosition = playPosition + 1;
-
-                        }
-                        else if(playPosition == musicmesList.size()-1)
-                        {
-                            playPosition = 0;
-                        }
-                    }
-                    else if(playsort == 1)
-                    {
-                        Random random = new Random();
-                         playPosition = random.nextInt(musicmesList.size()-1);
-                    }
-                    Musicmes musicmes = musicmesList.get(playPosition);
-                    LastNextMusic(musicmes);
-                }
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {//滑动条开始滑动时调用
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { //滑动条停止滑动时调用
-
-                //根据拖动的进度改变音乐播放进度
-                int progress = seekBar.getProgress();//获取seekBar的进度
-                musicControl.seekTo(progress);         //改变播放进度
-            }
-        });
 
     }
 
@@ -371,129 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    private void loadLocalMusicData() {
-        /*加载本地存储当中的音乐mp3文件到集合当中*/
-        //1.获取ContentResolver对象
-        ContentResolver resolver = getContentResolver();
-        // 2.获取本地音乐存储的Ur地址
-        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        //EXTERNAL_ CONTENT_ URI;
-        //3.开始查询地址
-        Cursor cursor = resolver.query(uri,null,null,null,MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
-        //4.遍历Cursor
-        int id=0;
-        while (cursor. moveToNext()) {
-            @SuppressLint("Range") String song = cursor.getString(cursor.getColumnIndex (MediaStore.Audio.Media.TITLE));//歌曲名
-            @SuppressLint("Range") String singer = cursor.getString (cursor.getColumnIndex (MediaStore.Audio.Media.ARTIST));//歌手
-            @SuppressLint("Range") String album = cursor.getString (cursor.getColumnIndex (MediaStore.Audio.Media.ALBUM));//专辑名称
-            id++;
-            String sid = String.valueOf(id);
-            @SuppressLint("Range") String path = cursor.getString (cursor. getColumnIndex(MediaStore.Audio.Media.DATA));//存储路径
-            @SuppressLint("Range") Long duration = cursor.getLong (cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));//歌曲时长
-            SimpleDateFormat sdf = new SimpleDateFormat( " mm:ss");
-            String time = sdf.format (new Date(duration));
-            //将一行当中的数据封装到对象当中
-            Musicmes musicmes = new Musicmes(sid,song,singer,time,album,path);
-            musicmesList.add(musicmes) ;
-            //数据源变化，提示适配器更新
-            musicAdapter.notifyDataSetChanged();
-        }
 
-    }
-    public static Handler handler = new Handler() {//创建消息处理器对象
-        //在主线程中处理从子线程发送过来的消息
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle bundle = msg.getData(); //获取从子线程发送过来的音乐播放进度
-            int duration = bundle.getInt("duration");                  //歌曲的总时长
-            int currentPostition = bundle.getInt("currentPosition");//歌曲当前进度
-            sb.setMax(duration);                //设置SeekBar的最大值为歌曲总时长
-            sb.setProgress(currentPostition);//设置SeekBar当前的进度位置
-            //歌曲的总时长
-            int minute = duration / 1000 / 60;
-            int second = duration / 1000 % 60;
-            String strMinute = null;
-            String strSecond = null;
-            if (minute < 10) {              //如果歌曲的时间中的分钟小于10
-                strMinute = "0" + minute; //在分钟的前面加一个0
-            } else {
-                strMinute = minute + "";
-            }
-            if (second < 10) {             //如果歌曲的时间中的秒钟小于10
-                strSecond = "0" + second;//在秒钟前面加一个0
-            } else {
-                strSecond = second + "";
-            }
-            tv_total.setText(strMinute + ":" + strSecond);
-            //歌曲当前播放时长
-            minute = currentPostition / 1000 / 60;
-            second = currentPostition / 1000 % 60;
-            if (minute < 10) {             //如果歌曲的时间中的分钟小于10
-                strMinute = "0" + minute;//在分钟的前面加一个0
-            } else {
-                strMinute = minute + "";
-            }
-            if (second < 10) {               //如果歌曲的时间中的秒钟小于10
-                strSecond = "0" + second;  //在秒钟前面加一个0
-            } else {
-                strSecond = second + "";
-            }
-            tv_progress.setText(strMinute + ":" + strSecond);
-        }
-    };
-    class MyServiceConn implements ServiceConnection { //用于实现连接服务
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service)
-        {
-            musicControl = (MusicplayService.MusicControl) service;
-        }
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    }
-    private void unbind(boolean isUnbind){
-        if(!isUnbind){                  //判断服务是否被解绑
-            musicControl.pauseMusic();//暂停播放音乐
-            unbindService(conn);      //解绑服务
-        }
-    }
-
-
-    //动态申请SD卡权限
-
-    private void checkPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            //多个权限一起申请
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            }, 1);
-        }
-    }
-
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                //拒绝
-            } else {
-
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbind(isUnbind); //解绑服务
-    }
 
 
     public void showToast(String message)
