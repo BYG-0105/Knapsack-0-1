@@ -1,71 +1,48 @@
 package com.example.knapsack.Activity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
+
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
+
+import android.database.sqlite.SQLiteDatabase;
+
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
+
+
+
 import android.os.Parcelable;
-import android.provider.MediaStore;
+
 import android.view.View;
-import android.widget.AdapterView;
+
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
-import com.example.potplayer.Bean.Musicmes;
-import com.example.potplayer.Service.MusicplayService;
-import com.example.potplayer.adapter.MusicAdapter;
-
-import java.text.SimpleDateFormat;
+import com.example.knapsack.database.DBManager;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView back,change;
-    private ImageView look,last,stop,next;
-    private ImageView fir,sec,ord,ban,alb;
+    private ImageView tanxin,huisu,dtgh,gene,paint;
     private TextView username;
-    private TextView singer;
-    private TextView music;
-    private TextView album;
-    private static TextView tv_progress;
-    private static TextView tv_total;
-    private static SeekBar sb;//滑动条
-
-    public List<Musicmes> musicmesList = new ArrayList<>();
-    private MusicAdapter musicAdapter;
-    private ListView listView;
-    private MusicplayService.MusicControl musicControl;
-    MyServiceConn conn;
-    private static final int REQUEST_CODE = 1;
-    private int playPosition = -1;//记录正在播放的位置
-    private int playsort = 0; //默认顺序播放，1---随机播放，2-----循环播放
+    public List<Goods> musicmesList = new ArrayList<>();
     int iconsort = 0;
-    private boolean isUnbind = false;//记录服务是否被解绑
     String name;
-
+    public DBManager dbHelper;
+    private SQLiteDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +59,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dbHelper.closeDatabase();
 
 
+        database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+
+
+
+        database.close();
+
 
 
     }
@@ -90,14 +73,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initview() {
         back = findViewById(R.id.back);
         change = findViewById(R.id.save);
-        look = findViewById(R.id.look);
-        last = findViewById(R.id.iv_last);
-        stop = findViewById(R.id.iv_stop);
-        next = findViewById(R.id.iv_next);
-        singer = findViewById(R.id.music_gs);
-        music = findViewById(R.id.music_gq);
+        tanxin = findViewById(R.id.im_tanxin);
+        huisu = findViewById(R.id.im_huisu);
+        dtgh = findViewById(R.id.im_dtgh);
+        gene = findViewById(R.id.im_ycsf);
+        paint = findViewById(R.id.im_paint);
+
         username = findViewById(R.id.user_name);
-        listView = findViewById(R.id.order_listview);
+
         album = findViewById(R.id.music_album);
         tv_progress = (TextView) findViewById(R.id.tv_progress);
         tv_total = (TextView) findViewById(R.id.tv_total);

@@ -61,7 +61,6 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder>{
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView singer,song;
-        ImageView video;
         public ViewHolder(@NonNull View view)
         {
             super(view);

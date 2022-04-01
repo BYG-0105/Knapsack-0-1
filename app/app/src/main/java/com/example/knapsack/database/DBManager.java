@@ -13,9 +13,9 @@ import java.io.InputStream;
 
 public class DBManager {
 
-    private static final String DB_NAME = "assistant.db"; //保存的数据库文件名
-    private static final String PACKAGE_NAME = "com.example.knapsack";//包名
-    private static final String DB_PATH = "/data"
+    public static final String DB_NAME = "assistant.db"; //保存的数据库文件名
+    public static final String PACKAGE_NAME = "com.example.knapsack";//包名
+    public static final String DB_PATH = "/data"
             + Environment.getDataDirectory().getAbsolutePath() + "/"
             + PACKAGE_NAME + "/databases";  //存放数据库的位置
     private SQLiteDatabase database;
