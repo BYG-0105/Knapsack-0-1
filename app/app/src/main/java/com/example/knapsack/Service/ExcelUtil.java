@@ -3,6 +3,8 @@ package com.example.knapsack.Service;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.knapsack.Bean.Goods;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,10 +66,11 @@ public class ExcelUtil {
     /**
      * 初始化Excel
      *
+     * @param filePath
      * @param fileName 导出excel存放的地址（目录）
      * @param colName excel中包含的列名（可以有多个）
      */
-    public static void initExcel(String fileName, String[] colName) {
+    public static void initExcel(String filePath, String fileName, String[] colName) {
         format();
         WritableWorkbook workbook = null;
         try {
@@ -77,10 +80,10 @@ public class ExcelUtil {
             }
             workbook = Workbook.createWorkbook(file);
             //设置表格的名字
-            WritableSheet sheet = workbook.createSheet("账单", 0);
+            WritableSheet sheet = workbook.createSheet("0-1背包问题结果", 0);
             //创建标题栏
             sheet.addCell((WritableCell) new Label(0, 0, fileName, arial14format));
-            for (int col = 0; col < colName.length; col  ) {
+            for (int col = 0; col < colName.length; col++ ) {
                 sheet.addCell(new Label(col, 0, colName[col], arial10format));
             }
             //设置行高
@@ -99,7 +102,7 @@ public class ExcelUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
+
     public static <T> void writeObjListToExcel(List<T> objList, String fileName, Context c) {
         if (objList != null && objList.size() > 0) {
             WritableWorkbook writebook = null;
@@ -112,31 +115,29 @@ public class ExcelUtil {
                 writebook = Workbook.createWorkbook(new File(fileName), workbook);
                 WritableSheet sheet = writebook.getSheet(0);
 
-                for (int j = 0; j < objList.size(); j  ) {
-                    ProjectBean projectBean = (ProjectBean) objList.get(j);
+                for (int j = 0; j < objList.size(); j++ ) {
+                    Goods goods = (Goods) objList.get(j);
                     List<String> list = new ArrayList<>();
-                    list.add(projectBean.getName());
-                    list.add(projectBean.getProject());
-                    list.add(projectBean.getMoney());
-                    list.add(projectBean.getYear()   " "   projectBean.getMonth() " " projectBean.getDay());
-                    list.add(projectBean.getBeizhu());
-
-                    for (int i = 0; i < list.size(); i  ) {
-                        sheet.addCell(new Label(i, j   1, list.get(i), arial12format));
+                    list.add(goods.getWeight()+"");
+                    list.add(goods.getValue()+"");
+                    list.add(goods.getWvproportion()+"");
+                    list.add(goods.getSelect()+"");
+                    for (int i = 0; i < list.size(); i++) {
+                        sheet.addCell(new Label(i, j+1, list.get(i), arial12format));
                         if (list.get(i).length() <= 4) {
                             //设置列宽
-                            sheet.setColumnView(i, list.get(i).length()   8);
+                            sheet.setColumnView(i, list.get(i).length() +8);
                         } else {
                             //设置列宽
-                            sheet.setColumnView(i, list.get(i).length()   5);
+                            sheet.setColumnView(i, list.get(i).length() + 5);
                         }
                     }
                     //设置行高
-                    sheet.setRowView(j   1, 350);
+                    sheet.setRowView(j + 1, 350);
                 }
 
                 writebook.write();
-                Toast.makeText(c, "导出Excel成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(c, "导出Excel成功!!!!!!", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
