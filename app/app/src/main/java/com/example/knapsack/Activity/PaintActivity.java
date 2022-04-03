@@ -9,7 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.ScatterView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaintActivity extends AppCompatActivity implements View.OnClickListener{
     String name;
@@ -17,6 +22,10 @@ public class PaintActivity extends AppCompatActivity implements View.OnClickList
     TextView result;
     Button button;
     private ImageView tanxin,main,huisu,gene,dtgh,back;
+    public List<Goods> goods = new ArrayList<>();//用于存放商品列表
+    List<int []> x = new ArrayList<>();
+    List<int []> y = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +33,8 @@ public class PaintActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         name = intent.getStringExtra("username");
         table = intent.getStringExtra("table");
+        goods = intent.getParcelableArrayListExtra("list");
+
         initview();
     }
 
