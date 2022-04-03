@@ -80,10 +80,10 @@
                 app:srcCompat="@drawable/dtgh" />
 
             <ImageView
-                android:id="@+id/im_paint"
+                android:id="@+id/im_ycsf"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
-                app:srcCompat="@drawable/paint" />
+                app:srcCompat="@drawable/yc" />
 
         </LinearLayout>
     </LinearLayout>
