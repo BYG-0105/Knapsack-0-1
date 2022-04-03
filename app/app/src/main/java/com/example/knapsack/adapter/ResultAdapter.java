@@ -1,25 +1,21 @@
 package com.example.knapsack.adapter;
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
 import android.widget.TextView;
 
-
 import com.example.knapsack.Bean.Goods;
-
 import com.example.knapsack.R;
 
 import java.util.List;
 
-public class GoodsAdapter extends BaseAdapter {
+public class ResultAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private List<Goods> list;
-    public GoodsAdapter(Context context, List<Goods> list)
+    public ResultAdapter(Context context, List<Goods> list)
     {
         this.layoutInflater = LayoutInflater.from(context);
         this.list=list;
@@ -44,7 +40,7 @@ public class GoodsAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if(convertview == null)
         {
-            convertview=layoutInflater.inflate(R.layout.select_item_layout,null);
+            convertview=layoutInflater.inflate(R.layout.suan_item_layout,null);
             viewHolder = new ViewHolder(convertview);
             convertview.setTag(viewHolder);
         }
@@ -57,18 +53,18 @@ public class GoodsAdapter extends BaseAdapter {
         viewHolder.name.setText(goods.getId()+"");
         viewHolder.weight.setText(goods.getWeight()+"");
         viewHolder.value.setText(goods.getValue()+"");
-        viewHolder.wv.setText( goods.getWvproportion()+"");
+        viewHolder.select.setText( goods.getSelect()+"");
         return convertview;
     }
 
     class ViewHolder {
-        TextView name,weight,value,wv;
+        TextView name,weight,value,select;
         public ViewHolder( View view)
         {
             name = (TextView) view.findViewById(R.id.g_name);
             weight = (TextView) view.findViewById(R.id.g_weight);
             value = (TextView) view.findViewById(R.id.g_value);
-            wv = (TextView) view.findViewById(R.id.g_wv);
+            select = (TextView) view.findViewById(R.id.g_select);
         }
     }
 

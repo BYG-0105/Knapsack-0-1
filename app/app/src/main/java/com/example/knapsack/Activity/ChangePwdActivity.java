@@ -13,24 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.knapsack.Bean.Loginuser;
 import com.example.knapsack.R;
 import com.example.knapsack.database.MD5Utils;
-import com.example.knapsack.database.SQLiteHelper;
+import com.example.knapsack.database.Users;
 
 
 public class ChangePwdActivity extends AppCompatActivity {
 
     private EditText name,pwd,num;
     private Button btnxg,btnfinish;
-    private SQLiteHelper sqLiteHelper;
-    SQLiteHelper.User userSql = new SQLiteHelper.User();
     private ImageView back;
     String namess;
     private MD5Utils md5Utils ;
+    private Users users = new Users();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwd);
 
-        sqLiteHelper = new SQLiteHelper(this);
         name = (EditText) findViewById(R.id.e_namesc);
         pwd = (EditText) findViewById(R.id.e_pwdsc);
         btnxg = (Button)findViewById(R.id.btn_c);
@@ -59,15 +57,15 @@ public class ChangePwdActivity extends AppCompatActivity {
                {
                    showToast("联系方式为空！！！请重新输入");
                }
-               else if(userSql.userquery(names) == null)
+               else if(users.userquery(names) == null)
                {
                    showToast("账号不存在！！！检查账号是否正确！");
                }
-               else if(userSql.userquery(names) != null)
+               else if(users.userquery(names) != null)
                {
-                   Loginuser loginuser = userSql.userquery(names);
+                   Loginuser loginuser = users.userquery(names);
                    String id = loginuser.getId();
-                   if(userSql.updateData(id,names,pwds) && loginuser.getNum().equals(nums))
+                   if(users.updateData(id,names,pwds) && loginuser.getNum().equals(nums))
                    {
                        showToast("密码修改成功！！！");
                        if(namess == null)

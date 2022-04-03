@@ -2,6 +2,7 @@ package com.example.knapsack.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.knapsack.Bean.Loginuser;
 import com.example.knapsack.R;
+import com.example.knapsack.database.DBManager;
 import com.example.knapsack.database.MD5Utils;
-import com.example.knapsack.database.SQLiteHelper;
+import com.example.knapsack.database.Users;
 
 
 public class LoginActivity extends AppCompatActivity  implements View.OnClickListener{
@@ -24,8 +26,10 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
     private Button btnzc;
     private Button btnmm;
     private Button  finish;
-    SQLiteHelper sQliteHelper;
-    SQLiteHelper.User userSql = new SQLiteHelper.User();
+    //数据库变量
+    public DBManager dbHelper;
+    private SQLiteDatabase database;
+    Users userSql;
     private CheckBox mima,auto;
     private MD5Utils md5Utils;
 
@@ -33,6 +37,15 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        dbHelper = new DBManager(this);
+        dbHelper.openDatabase();
+        dbHelper.closeDatabase();
+        userSql = new Users();
+
+       // database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+
+       // database.close();
 
         initview();
 
@@ -78,7 +91,6 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
     private void initview() {
 
-        sQliteHelper = new SQLiteHelper(this);
         name = (EditText)findViewById(R.id.edit_name);
         pwd = (EditText) findViewById(R.id.edit_pwd);
         btnlogin = findViewById(R.id.btn_login);

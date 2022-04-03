@@ -13,7 +13,7 @@ import java.io.InputStream;
 
 public class DBManager {
 
-    public static final String DB_NAME = "assistant.db"; //保存的数据库文件名
+    public static final String DB_NAME = "knapsacks.db"; //保存的数据库文件名
     public static final String PACKAGE_NAME = "com.example.knapsack";//包名
     public static final String DB_PATH = "/data"
             + Environment.getDataDirectory().getAbsolutePath() + "/"

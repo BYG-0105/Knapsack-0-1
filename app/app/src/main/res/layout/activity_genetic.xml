@@ -38,11 +38,68 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tv_result3"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="TextView" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp">
+
+                <TextView
+                    android:id="@+id/g_name"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="物品编号" />
+
+                <TextView
+                    android:id="@+id/g_weight"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="物品重量" />
+
+                <TextView
+                    android:id="@+id/g_value"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="物品价值" />
+
+                <TextView
+                    android:id="@+id/g_select"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="是否被选中" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0行元素分别表示：背包总容量       物品数目        背包最大价值" />
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_save"

@@ -13,6 +13,7 @@ import com.example.knapsack.R;
 public class OwnActivity extends AppCompatActivity implements View.OnClickListener {
 
     String name;
+    String table;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
         TextView tvname = findViewById(R.id.tvname);
         Intent intent = getIntent();
         name = intent.getStringExtra("username");
+        table = intent.getStringExtra("table");
         tvname.setText("欢迎您，"+name+" ! 您已成功登录");
     }
 
@@ -36,16 +38,19 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.btn_xgmm:
                 Intent intentm = new Intent(OwnActivity.this,ChangePwdActivity.class);
                 intentm.putExtra("username",name);
+                intentm.putExtra("table",table);
                 startActivity(intentm);
                 break;
             case R.id.btn_xgmes:
                 Intent intentmes = new Intent(OwnActivity.this,RegisterActivity.class);
                 intentmes.putExtra("username",name);
+                intentmes.putExtra("table",table);
                 startActivity(intentmes);
                 break;
             case R.id.button_finish:
                 Intent intentf = new Intent(OwnActivity.this,MainActivity.class);
                 intentf.putExtra("username", name);
+                intentf.putExtra("table",table);
                 startActivity(intentf);
                 break;
         }

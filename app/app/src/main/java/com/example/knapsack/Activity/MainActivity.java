@@ -3,69 +3,77 @@ package com.example.knapsack.Activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
-
 import android.database.sqlite.SQLiteDatabase;
-
 import android.os.Bundle;
-
-
-
 import android.os.Parcelable;
-
 import android.view.View;
-
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.Algorithm;
+import com.example.knapsack.adapter.GoodsAdapter;
+import com.example.knapsack.database.Beibao;
 import com.example.knapsack.database.DBManager;
+import com.example.knapsack.database.Users;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //控件定义
     private ImageView back,change;
     private ImageView tanxin,huisu,dtgh,gene,paint;
+    private Button que,jisuan;
     private TextView username;
-    public List<Goods> musicmesList = new ArrayList<>();
+    private ListView listView;
+
+    public List<Goods> goods = new ArrayList<>();//用于存放商品列表
+    //定义常量
     int iconsort = 0;
+    int back1 = 0;
     String name;
+    String table;
+    //定义用户和商品对象
+    Users users = new Users();
+    Beibao beibao = new Beibao();
+    //数据库变量
     public DBManager dbHelper;
     private SQLiteDatabase database;
+    private GoodsAdapter goodsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initview();
-
         Intent intent = getIntent();
         name = intent.getStringExtra("username");
         username.setText("欢迎您！"+name);
-
         dbHelper = new DBManager(this);
         dbHelper.openDatabase();
         dbHelper.closeDatabase();
 
-
         database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
-
-
-
-        database.close();
-
-
+        table = intent.getStringExtra("table");
+        if(table != null )
+        {
+            goods = beibao.query(table);
+        }
+        goodsAdapter = new GoodsAdapter(MainActivity.this,goods);
+        listView.setAdapter(goodsAdapter);
+       // database.close();
 
     }
 
@@ -78,29 +86,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dtgh = findViewById(R.id.im_dtgh);
         gene = findViewById(R.id.im_ycsf);
         paint = findViewById(R.id.im_paint);
-
+        que = findViewById(R.id.que);
+        jisuan = findViewById(R.id.cal);
+        listView  = findViewById(R.id.list);
         username = findViewById(R.id.user_name);
 
-        album = findViewById(R.id.music_album);
-        tv_progress = (TextView) findViewById(R.id.tv_progress);
-        tv_total = (TextView) findViewById(R.id.tv_total);
-        sb = (SeekBar) findViewById(R.id.sbm);
-        fir = findViewById(R.id.im_paint);
-        sec = findViewById(R.id.im_tanxin);
-        ban = findViewById(R.id.im_main);
-        ord = findViewById(R.id.im_ycsf);
-        alb = findViewById(R.id.im_huisu);
+
         back.setOnClickListener(this);
         change.setOnClickListener(this);
-        last.setOnClickListener(this);
-        stop.setOnClickListener(this);
-        next.setOnClickListener(this);
-        look.setOnClickListener(this);
-        fir.setOnClickListener(this);
-        sec.setOnClickListener(this);
-        ban.setOnClickListener(this);
-        ord.setOnClickListener(this);
-        alb.setOnClickListener(this);
+        tanxin.setOnClickListener(this);
+        huisu.setOnClickListener(this);
+        dtgh.setOnClickListener(this);
+        gene.setOnClickListener(this);
+        paint.setOnClickListener(this);
+        que.setOnClickListener(this);
+        jisuan.setOnClickListener(this);
 
     }
 
@@ -108,53 +108,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId())
         {
-            case R.id.look:
-               if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                {
-                    showToast("该应用无访问存储权限");
-                    checkPermission();
-                }
-                loadLocalMusicData();
-                if(playPosition == -1)
-                {
-                    showToast("当前无音乐正在播放，请选择你所要播放的音乐");
-                    return;
-                }
-                else
-                {
-                    musicControl.stopMusic();
-                    Intent intent = new Intent(MainActivity.this,MusicActivity.class);
-                    intent.putParcelableArrayListExtra("musiclist", (ArrayList<? extends Parcelable>) musicmesList);
-                    intent.putExtra("username",name);
-                    intent.putExtra("playposition",playPosition+"");
-                    startActivity(intent);
-                }
-
-                break;
             case R.id.back:
-                Intent intent = new Intent(MainActivity.this,WebActivity.class);
-                intent.putExtra("username",name);
-                startActivity(intent);
-                break;
-            case R.id.save:
                 AlertDialog dialog;
                 AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("设置播放顺序")
-                        .setIcon(R.drawable.sz)
-                        .setSingleChoiceItems(new String[]{"顺序播放","随机播放","循环播放"},
-                                iconsort, new DialogInterface.OnClickListener() {
+                        .setTitle("请选择返回界面")
+                        .setIcon(R.drawable.save)
+                        .setSingleChoiceItems(new String[]{"个人中心","登录界面"},
+                                back1, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        iconsort=which;
-
+                                        back1=which;
                                     }
                                 })
                         .setPositiveButton("确定", new
                                 DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        playsort = iconsort;
+                                       if(back1 == 0)
+                                       {
+                                           Intent intentb = new Intent(MainActivity.this,OwnActivity.class);
+                                           intentb.putExtra("username",name);
+                                           intentb.putExtra("table",table);
+                                           startActivity(intentb);
+                                       }
+                                        if(back1 == 1)
+                                        {
+                                            Intent intentb = new Intent(MainActivity.this,LoginActivity.class);
+                                            intentb.putExtra("username",name);
+                                            intentb.putExtra("table",table);
+                                            startActivity(intentb);
+                                        }
                                         dialog.dismiss();
                                     }
                                 })
@@ -168,112 +151,115 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialog=builder.create();
                 dialog.show();
                 break;
-            case R.id.iv_last:
-                if(playPosition == -1)
-                {
-                    showToast("当前无音乐正在播放，请选择你所要播放的音乐");
-                    return;
-                }
-                else if(playPosition == 0)
-                {
-                    showToast("当前歌曲为第一首，没有上一曲了！！！");
-                    return;
-                }
-                else
-                {
-                    playPosition = playPosition - 1;
-                    Musicmes musicmes = musicmesList.get(playPosition);
-                    LastNextMusic(musicmes);
-                }
-                break;
-            case R.id.iv_stop:
-                if(playPosition == -1)
-                {
-                    showToast("当前无音乐正在播放，请选择你所要播放的音乐");
-                    return;
-                }
-                else if(musicControl.isplay())
-                {
-                    //正在播放音乐，进行暂停操作
-                    musicControl.pauseMusic();
-                    stop.setImageResource(R.drawable.pasue);
-                }
-                else
-                {
-                    //此时没有播放音乐，点击开始播放音乐
-                    musicControl.playMusic();
-                    stop.setImageResource(R.drawable.play);
-                }
-                break;
-            case R.id.iv_next:
-                if(playPosition == -1)
-                {
-                    showToast("当前无音乐正在播放，请选择你所要播放的音乐");
-                    return;
-                }
-                else if(playPosition == musicmesList.size()-1)
-                {
-                    showToast("当前歌曲为最后一首歌曲，没有下一曲了！！！");
-                    return;
-                }
-                else
-                {
-                  //  Log.i("geqn1","当前这一首歌曲为"+playPosition+"          ssdff      "+musicmesList.get(playPosition).toString());
-                    playPosition = playPosition + 1;
-                    Musicmes musicmes = musicmesList.get(playPosition);
-                   // Log.i("gw2","下一首歌曲为"+playPosition+"          ssdff      "+musicmes.toString());
-                    LastNextMusic(musicmes);
+            case R.id.save:
+                AlertDialog dialogs;
+                AlertDialog.Builder builders=new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("请选择数据集")
+                        .setIcon(R.drawable.save)
+                        .setSingleChoiceItems(new String[]{"beibeo0","beibeo1","beibeo2","beibeo3","beibeo4","beibeo5","beibeo6","beibeo7","beibeo8","beibeo9"},
+                                iconsort, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        iconsort=which;
 
-                }
-                break;
-            case R.id.im_paint:
-                Intent intentf = new Intent(MainActivity.this,OwnActivity.class);
-                intentf.putExtra("username",name);
-                startActivity(intentf);
+                                    }
+                                })
+                        .setPositiveButton("确定", new
+                                DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        table = "beibao"+iconsort;
+                                        goods = beibao.query(table);
+                                        goodsAdapter = new GoodsAdapter(MainActivity.this,goods);
+                                        listView.setAdapter(goodsAdapter);
+                                        dialog.dismiss();
+                                    }
+                                })
+                        .setNegativeButton("取消", new
+                                DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                dialogs=builders.create();
+                dialogs.show();
+
                 break;
             case R.id.im_tanxin:
-                if(playPosition == -1)
-                {
-
-                    Intent intentq = new Intent(MainActivity.this,MusicActivity.class);
-                    intentq.putParcelableArrayListExtra("musiclist", (ArrayList<? extends Parcelable>) musicmesList);
-                    intentq.putExtra("playposition",0+"");
-                    intentq.putExtra("username",name);
-                    startActivity(intentq);
-                }
-                else
-                {
-                    musicControl.stopMusic();
-                    Intent intentq = new Intent(MainActivity.this,MusicActivity.class);
-                    intentq.putParcelableArrayListExtra("musiclist", (ArrayList<? extends Parcelable>) musicmesList);
-                    intentq.putExtra("playposition",playPosition+"");
-                    intentq.putExtra("username",name);
-                    startActivity(intentq);
-                }
-                break;
-            case R.id.im_main:
-                Intent intentb = new Intent(MainActivity.this,SingbanActivity.class);
-                intentb.putExtra("username",name);
-                startActivity(intentb);
-                break;
-            case R.id.im_ycsf:
-                Intent intento = new Intent(MainActivity.this,OrderActivity.class);
-                intento.putExtra("username",name);
-                startActivity(intento);
+                Intent intentt = new Intent(MainActivity.this,GreedyActivity.class);
+                intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
+                intentt.putExtra("username",name);
+                intentt.putExtra("table",table);
+                startActivity(intentt);
                 break;
             case R.id.im_huisu:
-                Intent intenta = new Intent(MainActivity.this,AlbumActivity.class);
-                intenta.putExtra("username",name);
-                startActivity(intenta);
+                Intent intenth = new Intent(MainActivity.this,BacktrackingActivity.class);
+                intenth.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
+                intenth.putExtra("username",name);
+                intenth.putExtra("table",table);
+                startActivity(intenth);
+                break;
+            case R.id.im_ycsf:
+                Intent intenty = new Intent(MainActivity.this,GeneticActivity.class);
+                intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
+                intenty.putExtra("username",name);
+                intenty.putExtra("table",table);
+                startActivity(intenty);
+                break;
+            case R.id.im_dtgh:
+                Intent intentd = new Intent(MainActivity.this,DynamicActivity.class);
+                intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
+                intentd.putExtra("username",name);
+                intentd.putExtra("table",table);
+                startActivity(intentd);
+                break;
+            case R.id.im_paint:
+                Intent intentp = new Intent(MainActivity.this,PaintActivity.class);
+                intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
+                intentp.putExtra("username",name);
+                intentp.putExtra("table",table);
+                startActivity(intentp);
+                break;
+            case R.id.cal:
+                for(int i = 1;i < goods.size();i++)
+                {
+                    Goods g = goods.get(i);
+                    double d = g.getValue()/g.getWeight();
+                    // d = new BigDecimal(d.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()
+                    g.setWvproportion( d);
+                    goods.get(i).setWvproportion(g.getWvproportion());
+                }
+                Algorithm algorithm = new Algorithm();
+                goods = algorithm.quickSort(goods,0,goods.size()-1);
+                /*
+                Collections.sort(goods, new Comparator<Goods>(){
+
+                    /*
+                     * int compare(Goods o1, Goods o2) 返回一个基本类型的整型，
+                     * 返回负数表示：o1 小于o2，
+                     * 返回0 表示：o1和o2相等，
+                     * 返回正数表示：o1大于o2。
+
+                    public int compare(Goods o1, Goods o2) {
+
+                        //按照学生的年龄进行降序排列
+                        if(o1.getWvproportion() < o2.getWvproportion()){
+                            return -1;
+                        }
+                        if(o1.getWvproportion() == o2.getWvproportion()){
+                            return 0;
+                        }
+                        return 1;
+                    }
+                });
+*/
+                goodsAdapter = new GoodsAdapter(MainActivity.this,goods);
+                listView.setAdapter(goodsAdapter);
                 break;
         }
 
     }
-
-
-
-
-
 
 
     public void showToast(String message)

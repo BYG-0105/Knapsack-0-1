@@ -1,6 +1,7 @@
 package com.example.knapsack.Activity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.knapsack.Bean.Loginuser;
 import com.example.knapsack.R;
+import com.example.knapsack.database.DBManager;
 import com.example.knapsack.database.MD5Utils;
-import com.example.knapsack.database.SQLiteHelper;
+import com.example.knapsack.database.Users;
 
 
 import java.util.ArrayList;
@@ -27,23 +29,23 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btn_cancal;
     private EditText username;
     private EditText userpwd;
-    private SQLiteHelper sqLiteHelper;
-    private SQLiteHelper.User UsersqLiteHelper = new SQLiteHelper.User();
     private List<String> styleString=new ArrayList<String>();
     private CheckBox stylehy,styleyg,styleom,stylegd;
+    private Users UsersqLiteHelper = new Users();
     private RadioGroup radioGroup;
     String uGender  = "男";
     private TextView city;
     private TextView age;
     private TextView num;
     private MD5Utils md5Utils;
+    private SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        sqLiteHelper = new SQLiteHelper(this);
+
 
         initview();
         Intent intent = getIntent();

@@ -1,6 +1,10 @@
 package com.example.knapsack.Service;
 
-import java.math.BigDecimal;
+import com.example.knapsack.Bean.Goods;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Algorithm {
 	/*构造器*/
@@ -8,52 +12,34 @@ public class Algorithm {
 	{	}
 
 	//贪心算法
-	public double[][] Greedy(double[][] x ,int w[],int v[],int n, int C)
+	public List<Goods> Greedy(List<Goods> list)
 	{
-		double[] c = new double[1000];
-		//计算每个物品单位重量价值比
-		for(int i = 0;i < n;i++)
-		{
-			c[i] =(double)v[i]/(double)w[i];
-		}
-		//对每个物品按照单位重量价值比进行排序
-		for(int i = 0;i < n;i++)
-		{
-			for(int j = i+1;j < n;j++)
-			{
-				if(c[i] <= c[j]) //c[i] <= c[j]，将对应物品进行交换
-				{
-					//交换物品单位重量价值比
-					double temp = c[i];
-					c[i] = c[j];
-					c[j] = temp;
-					//交换物品重量
-					int tempw = w[i];
-					w[i] = w[j];
-					w[j] = tempw;
-					//交换物品价值
-					int tempv = v[i];
-					v[i] = v[j];
-					v[j] = tempv;
-
-				}
-			}
-		}
+		int	C =  list.get(0).getWeight();
+		int n =  (int)list.get(0).getValue();
+		//计算每个物品单位重量价值比,对每个物品按照单位重量价值比进行排序
+		knapsack(list);
 		//初始化数组x
-		for(int i = 0;i < n;i++)
+		for(int i = 1;i <= n;i++)
 		{
-			x[i][0] = 0;
+			list.get(i).setSelect("No");
 		}
 		int maxValue= 0;//背包最大价值
-		int i;
-		for (i=0; w[i]<C; i++ )
+		for (int i=1; list.get(i).getWeight()<C; i++ )
 		{
-			x[i][0]=1;//装入当前物品
-			maxValue+=v[i] ;//更新背包价值
-			C=C-w[i] ;//更新背包容量
+			list.get(i).setSelect("Yes");//装入当前物品
+			maxValue+=list.get(i).getValue() ;//更新背包价值
+			C=C-list.get(i).getWeight() ;//更新背包容量
 		}
-		x[n][0] =maxValue ;
-		return x;
+		list.get(0).setSelect(maxValue+"");
+		for(int i=1;i<=n-1;i++)
+		{
+			for(int j=i+1;j<=n;j++)
+				if(list.get(i).getId()>list.get(j).getId())//冒泡排序
+				{
+					swap(list,i,j);
+				}
+		}
+		return list;
 
 	}
 
@@ -62,82 +48,96 @@ public class Algorithm {
 	double cw = 0.0;//当前背包重量
 	double cp = 0.0;//当前背包中物品价值
 	double bestp = 0.0;//当前最优价值
-	double[] perp = new double[1000];//单位物品价值排序后
-	double[] put= new double [1000];//设置是否装入
-
-	//按单位价值排序
-	void knapsack(int[] w,int[] v,int n)
-	{
-		int i,j;
-		int temp = 0;
-
-		for(i=0;i<n;i++)
-			perp[i]=v[i]/w[i];
-		for(i=0;i<n-1;i++)
-		{
-			for(j=i+1;j<n;j++)
-				if(perp[i]<perp[j])//冒泡排序perp[],sortv[],sortw[]
-				{
-					double t = perp[i];
-					perp[i]=perp[i];
-					perp[j]=t;
-
-					temp = v[i];
-					v[i]=v[j];
-					v[j]=temp;
-
-					temp=w[i];
-					w[i]=w[j];
-					w[j]=temp;
-				}
-		}
-	}
-
 	//回溯函数
-	void backtrack(int i,int[] w,int[] v,int C,int n)
+	void backtrack(int i,List<Goods> list)
 	{
-		bound(i,w,v,n,C); //计算上界
-		if(i>=n)  //所有元素都已遍历到，回溯结束
+		int	C =  list.get(0).getWeight();
+		int n =  (int)list.get(0).getValue();
+		bound(i,list); //计算上界
+		if(i>n)  //所有元素都已遍历到，回溯结束
 		{
 			bestp = cp;
 			return ;
 		}
-		if(cw+w[i]<=C)
+		if(cw+list.get(i).getWeight()<=C)
 		{
 			//放入背包
-			cw+=w[i];
-			cp+=v[i];
-			put[i]=1;
-			backtrack(i+1,w,v,C,n);
-			cw-=w[i];
-			cp-=v[i];
+			cw+=list.get(i).getWeight();
+			cp+=list.get(i).getValue();
+			list.get(i).setSelect("Yes");
+			backtrack(i+1,list);
+			cw-=list.get(i).getWeight();
+			cp-=list.get(i).getValue();
 		}
-		if(bound(i+1,w,v,n,C)>bestp)//符合条件搜索右子数
-			backtrack(i+1,w,v,C,n);
+		if(bound(i+1,list)>bestp)//符合条件搜索右子数
+			backtrack(i+1,list);
 	}
-
 
 	//计算上界函数
-	double bound(int i ,int[] w,int[] v,int n,int C)
+	double bound(int i ,List<Goods> list)
 	{
+		int	C =  list.get(0).getWeight();
+		int n =  (int)list.get(0).getValue();
 		double leftw= C-cw;
 		double b = cp;
-		while(i<n && w[i]<=leftw)
+		while(i<=  n && list.get(i).getWeight()<=leftw)
 		{
-			leftw-=w[i];
-			b+=v[i];
+			leftw-=list.get(i).getWeight();
+			b+=list.get(i).getValue();
 			i++;
 		}
-		if(i<n)
-			b+=v[i]/w[i]*leftw;
+		if(i<=n)
+			b+=list.get(i).getValue()/list.get(i).getWeight()*leftw;
 		return b;//返回上界值
 	}
-	double[] Backtracking(int[] w,int[] v,int n,int C)
+
+	private static <E> void swap(List<E> list,int index1,int index2) {
+		//定义第三方变量
+		E e=list.get(index1);
+		//交换值
+		list.set(index1, list.get(index2));
+		list.set(index2, e);
+	}
+	//按单位价值排序
+	void knapsack(List<Goods> list)
 	{
-		knapsack(w,v,n);
-		backtrack(0,w,v,C,n);
-		put[n] = bestp;
-		return put;
+		int i,j;
+		int temp = 0;
+		int	C =  list.get(0).getWeight();
+		int n =  (int)list.get(0).getValue();
+		for( i = 1;i <= n;i++)
+		{
+			Goods g = list.get(i);
+			double d = g.getValue()/g.getWeight();
+			// d = new BigDecimal(d.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()
+			g.setWvproportion( d);
+			list.get(i).setWvproportion(g.getWvproportion());
+			list.get(i).setSelect("No");
+		}
+		for(i=1;i<=n-1;i++)
+		{
+			for(j=i+1;j<=n;j++)
+				if(list.get(i).getWvproportion()<list.get(j).getWvproportion())//冒泡排序
+				{
+					swap(list,i,j);
+				}
+		}
+	}
+	public List<Goods> Backtracking(List<Goods> list)
+	{
+		knapsack(list);
+		backtrack(1,list);
+		list.get(0).setSelect(bestp+"");
+		int n =  (int)list.get(0).getValue();
+		for(int i=1;i<=n-1;i++)
+		{
+			for(int j=i+1;j<=n;j++)
+				if(list.get(i).getId()>list.get(j).getId())//冒泡排序
+				{
+					swap(list,i,j);
+				}
+		}
+		return list;
 	}
 
 
@@ -147,10 +147,11 @@ public class Algorithm {
 
 
 	//动态规划算法
-	public int[] Dynamic(int w[ ], int v[ ],int n,int C)
+	public List<Goods> Dynamic(List<Goods> list)
 	{
 		int i,j;
-		int[] x = new int [10000];
+		int	C =  list.get(0).getWeight();
+		int n =  (int)list.get(0).getValue();
 		int[][] V = new int [10000][10000];
 		for (i=0; i<=n; i++)   //初始化第0列
 		{
@@ -164,19 +165,19 @@ public class Algorithm {
 		{
 			for (j=1; j<=C; j++)
 			{
-				if (j<w[i])
+				if (j<list.get(i).getWeight())
 				{
 					V[i][j]=V[i-1][j];
 				}
 				else
 				{
-					if(V[i-1][j] > V[i-1][j-w[i]]+v[i])
+					if(V[i-1][j] > V[i-1][j-list.get(i).getWeight()]+list.get(i).getValue())
 					{
 						V[i][j]=V[i-1][j];
 					}
 					else
 					{
-						V[i][j]=V[i-1][j-w[i]]+v[i];
+						V[i][j]= (int) (V[i-1][j-list.get(i).getWeight()]+list.get(i).getValue());
 					}
 				}
 
@@ -187,39 +188,73 @@ public class Algorithm {
 		{
 			if (V[i][j]>V[i-1][j])
 			{
-				x[i]=1;
-				j=j-w[i];
+				list.get(i).setSelect("Yes");
+				j=j-list.get(i).getWeight();
 			}
 			else
 			{
-				x[i]=0;
+				list.get(i).setSelect("No");
 			}
 		}
-		x[n] = V[n][C];//V[n][C]----背包取得的最大价值
-		return x;
+		list.get(0).setSelect(V[n][C]+"");//V[n][C]----背包取得的最大价值
 
+		for( i=1;i<=n-1;i++)
+		{
+			for( j=i+1;j<=n;j++)
+				if(list.get(i).getId()>list.get(j).getId())//冒泡排序
+				{
+					swap(list,i,j);
+				}
+		}
+		return list;
 	}
 
 
 
-	public double[][] Selectsort(double r[][], int first, int end){
-		//插入排序
-		for (int i = 1; i < end; i++) {
-			//外层循环，从第二个开始比较
-			for (int j = i; j > 0; j--) {
-				//内存循环，与前面排好序的数据比较，如果后面的数据小于前面的则交换
-				if (r[j][0] < r[j - 1][0]) {
-					double[] temp = new double[100];
-					temp = r[j - 1];
-					r[j - 1] = r[j];
-					r[j] = temp;
-				} else {
-					//如果不小于，说明插入完毕，退出内层循环
-					break;
-				}
+	public static int partition(List<Goods> list,int left,int right){
+		int pivot = left;
+		int id = list.get(pivot).getId();
+		int weight =  list.get(pivot).getWeight();
+		double value = list.get(pivot).getValue();
+		double wv = list.get(pivot).getWvproportion();
+
+
+
+		while(left < right){
+			while(left<right && list.get(right).getWvproportion() > list.get(pivot).getWvproportion())
+			{
+				right--;
 			}
+			list.get(left).setId(list.get(right).getId());
+			list.get(left).setWeight(list.get(right).getWeight());
+			list.get(left).setValue(list.get(right).getValue());
+			list.get(left).setWvproportion(list.get(right).getWvproportion());
+
+			while(left < right && list.get(left).getWvproportion() <= list.get(pivot).getWvproportion())
+			{
+				left++;
+			}
+			list.get(right).setId(list.get(left).getId());
+			list.get(right).setWeight(list.get(left).getWeight());
+			list.get(right).setValue(list.get(left).getValue());
+			list.get(right).setWvproportion(list.get(left).getWvproportion());
+
 		}
-		return r;
+		list.get(left).setId(id);
+		list.get(left).setWeight(weight);
+		list.get(left).setValue(value);
+		list.get(left).setWvproportion(wv);
+
+		return left;
+	}
+	public static List<Goods> quickSort(List<Goods> list,int left,int right){
+		int middle;
+		if(left < right){
+			middle = partition(list,left,right);
+			quickSort(list,left,middle-1);
+			quickSort(list,middle+1,right);
+		}
+		return list;
 	}
 
 }
