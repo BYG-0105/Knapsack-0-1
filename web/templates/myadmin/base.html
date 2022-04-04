@@ -204,8 +204,9 @@
         <li class="header">主要导航</li>
         <!-- 导航列表，你可以自行更改图标 -->
         <li class="active"><a href="{% url 'myadmin_index' %}"><i class="fa fa-home"></i> <span>首页</span></a></li>
+        <li><a href="{% url 'myadmin_beibao_index' %}"><i class="fa fa-user"></i> <span>数据集查看</span></a></li>
+        <li><a href="{% url 'myadmin_user_index' %}"><i class="fa fa-users"></i> <span>日志查看</span></a></li>
         
-        <li><a href="{% url 'myadmin_user_index' %}"><i class="fa fa-users"></i> <span>员工管理</span></a></li>
         <!-- <li class="treeview">
           <a href="category.html"><i class="fa fa-cutlery"></i> <span>算法</span>
             <span class="pull-right-container">
@@ -216,13 +217,11 @@
             <li><a href="category.html"> <i class="fa fa-circle-o"></i> 菜品分类</a></li>
             <li><a href="product.html"> <i class="fa fa-circle-o"></i> 菜品信息</a></li>
           </ul>
-        </li> -->
+        </li>
         <li><a href="orders.html"><i class="fa fa-shopping-cart"></i> <span>散点图</span></a></li>
-        <li><a href="#"><i class="fa fa-user"></i> <span>数据集选择及导入</span></a></li>
-        <li><a href="#"><i class="fa fa-key"></i> <span>散点图绘制</span></a></li>
         <li><a href="#"><i class="fa fa-gear"></i> <span>非递增排序</span></a></li>
         <li><a href="#"><i class="fa fa-unlock-alt"></i> <span>结果导出</span></a></li>
-        <li><a href="#"><i class="fa fa-unlock-alt"></i> <span>日志查看</span></a></li>
+        <li><a href="#"><i class="fa fa-unlock-alt"></i> <span>日志查看</span></a></li> -->
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -242,8 +241,6 @@
     <div class="pull-right hidden-xs">
       <!--餐饮管理平台-->
     </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2020 <a href="#">北京****有限公司</a>.</strong> 版权所有
   </footer>
 
   <!-- 添加侧栏的背景。必须放置此处紧接在控制侧边栏之后 -->

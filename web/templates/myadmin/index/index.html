@@ -1,5 +1,26 @@
 {% extends 'myadmin/base.html'%}
 
 {% block main_body %}
-首页
+<div id="main">
+    <pre>
+        <div id="box">
+            <hr>
+                <h1>背包求解</h1>
+            <form >
+                请选择数据集0-9：<input type ="text" name ="data" />
+            <br />
+                算法选择：<select id="sid" onchange="selectcity()">
+                    <option selected>---请选择---</option>
+                    <option>贪心法</option>
+                    <option>动态规划法</option>
+                    <option>回溯法</option>
+                    <option>遗传算法</option>
+                </select>
+            <br />
+                <button>   确定    </button>
+            </form>
+            <hr>
+        </div>
+    </pre>
+</div>
 {% endblock %}
