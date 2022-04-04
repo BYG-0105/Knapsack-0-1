@@ -28,6 +28,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BarChartActivity extends AppCompatActivity implements OnChartValueSelectedListener, View.OnClickListener {
@@ -156,13 +158,33 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
 
         //模拟数据
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        for(int i = 1;i < goods.size();i++)
+        Collections.sort(goods, new Comparator<Goods>(){
+
+                    /*
+                     * int compare(Goods o1, Goods o2) 返回一个基本类型的整型，
+                     * 返回负数表示：o1 小于o2，
+                     * 返回0 表示：o1和o2相等，
+                     * 返回正数表示：o1大于o2。
+                    */
+                    public int compare(Goods o1, Goods o2) {
+
+                        //按照学生的年龄进行降序排列
+                        if(o1.getWeight() < o2.getWeight()){
+                            return -1;
+                        }
+                        if(o1.getWeight() == o2.getWeight()){
+                            return 0;
+                        }
+                        return 1;
+                    }
+                });
+       for(int i = 1;i < goods.size();i++)
         {
             float x = (float) goods.get(i).getWeight() ;
             float y = (float) goods.get(i).getValue() ;
             yVals1.add(new BarEntry(x, y));
         }
-        System.out.println("yVals1:"+yVals1.size());
+
         setData(yVals1);
 
     }
