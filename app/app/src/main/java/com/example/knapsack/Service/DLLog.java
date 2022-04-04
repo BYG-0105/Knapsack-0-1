@@ -25,7 +25,7 @@ public class DLLog {
     private static int SDCARD_LOG_FILE_SAVE_DAYS = 5; // sd卡中日志文件的最多保存天数
 
     private static String LOGFILENAME = ".txt"; // 本类输出的日志文件名称
-    private static String LOG_PATH_SDCARD_DIR = "/sdcard/LIUDELI/"; // 日志文件在sdcard中的路径
+    private static String LOG_PATH_SDCARD_DIR = "/sdcard/Log/"; // 日志文件在sdcard中的路径
 
     @SuppressLint({ "SdCardPath", "SimpleDateFormat" })
     private static SimpleDateFormat LogSdf = new SimpleDateFormat(
@@ -103,7 +103,7 @@ public class DLLog {
             */
 
             if (LOG_WRITE_TO_FILE)
-                writeLogtoFile("start EquesDeviceIOT专用日志：" + level, tag + "标签", msg + " end。");
+                writeLogtoFile("start 0-1背包问题APP专用日志：" + level, tag + "标签", msg + " end。");
         }
     }
 

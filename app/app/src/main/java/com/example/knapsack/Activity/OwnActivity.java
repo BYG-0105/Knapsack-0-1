@@ -2,18 +2,25 @@ package com.example.knapsack.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class OwnActivity extends AppCompatActivity implements View.OnClickListener {
 
     String name;
     String table;
+    public List<Goods> goods = new ArrayList<>();//用于存放商品列表
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +35,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
         Intent intent = getIntent();
         name = intent.getStringExtra("username");
         table = intent.getStringExtra("table");
+        goods = intent.getParcelableArrayListExtra("list");
         tvname.setText("欢迎您，"+name+" ! 您已成功登录");
     }
 
@@ -39,18 +47,21 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
                 Intent intentm = new Intent(OwnActivity.this,ChangePwdActivity.class);
                 intentm.putExtra("username",name);
                 intentm.putExtra("table",table);
+                intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
                 break;
             case R.id.btn_xgmes:
                 Intent intentmes = new Intent(OwnActivity.this,RegisterActivity.class);
                 intentmes.putExtra("username",name);
                 intentmes.putExtra("table",table);
+                intentmes.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentmes);
                 break;
             case R.id.button_finish:
                 Intent intentf = new Intent(OwnActivity.this,MainActivity.class);
                 intentf.putExtra("username", name);
                 intentf.putExtra("table",table);
+                intentf.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentf);
                 break;
         }

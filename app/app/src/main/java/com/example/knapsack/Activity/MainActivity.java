@@ -80,9 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setAdapter(goodsAdapter);
         logmes = intent.getStringExtra("log");
        // database.close();
-        String tag = "登录";
-        String msg ="cehnggggg";
-        DLLog.i(tag, "[" + "]" + msg);
+
+        DLLog.i("主界面", "已成功进入主界面");
     }
 
     //初始化界面控件
@@ -137,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                            Intent intentb = new Intent(MainActivity.this,OwnActivity.class);
                                            intentb.putExtra("username",name);
                                            intentb.putExtra("table",table);
+                                           DLLog.i("主界面", "用户进行页面跳转操作，跳转至个人中心界面");
                                            startActivity(intentb);
                                        }
                                         if(back1 == 1)
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             Intent intentb = new Intent(MainActivity.this,LoginActivity.class);
                                             intentb.putExtra("username",name);
                                             intentb.putExtra("table",table);
+                                            DLLog.i("主界面", "用户进行页面跳转操作，跳转至登录界面");
                                             startActivity(intentb);
                                         }
                                         dialog.dismiss();
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        DLLog.i("主界面", "用户进行页面跳转操作，已取消该操作");
                                         dialog.dismiss();
                                     }
                                 });
@@ -180,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         goods = beibao.query(table);
                                         goodsAdapter = new GoodsAdapter(MainActivity.this,goods);
                                         listView.setAdapter(goodsAdapter);
+                                        DLLog.i("主界面", "用户进行选择数据集操作，已选择数据集"+table);
                                         dialog.dismiss();
                                     }
                                 })
@@ -187,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        DLLog.i("主界面", "用户进行选择数据集操作，已取消该操作");
                                         dialog.dismiss();
                                     }
                                 });
@@ -199,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 intentt.putExtra("username",name);
                 intentt.putExtra("table",table);
+                DLLog.i("主界面", "用户进行页面跳转操作，跳转至贪心算法界面");
                 startActivity(intentt);
                 break;
             case R.id.im_huisu:
@@ -206,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intenth.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 intenth.putExtra("username",name);
                 intenth.putExtra("table",table);
+                DLLog.i("主界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 startActivity(intenth);
                 break;
             case R.id.im_ycsf:
@@ -213,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 intenty.putExtra("username",name);
                 intenty.putExtra("table",table);
+                DLLog.i("主界面", "用户进行页面跳转操作，跳转至遗传算法界面");
                 startActivity(intenty);
                 break;
             case R.id.im_dtgh:
@@ -220,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 intentd.putExtra("username",name);
                 intentd.putExtra("table",table);
+                DLLog.i("主界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 startActivity(intentd);
                 break;
             case R.id.im_paint:
@@ -227,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 intentp.putExtra("username",name);
                 intentp.putExtra("table",table);
+                DLLog.i("主界面", "用户进行页面跳转操作，跳转至绘制图像界面");
                 startActivity(intentp);
                 break;
             case R.id.cal:
@@ -264,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 */
                 goodsAdapter = new GoodsAdapter(MainActivity.this,goods);
                 listView.setAdapter(goodsAdapter);
+                DLLog.i("主界面", "用户进行计算物品价值重量比操作，并将其排序进行数据查看");
                 break;
         }
 
@@ -282,7 +292,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
             }, 1);
+            DLLog.i("主界面", "用户进行动态申请权限操作");
         }
+
     }
 
     public void showToast(String message)

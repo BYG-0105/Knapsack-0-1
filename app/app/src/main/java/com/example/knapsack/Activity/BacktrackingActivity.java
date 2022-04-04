@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
 import com.example.knapsack.Service.Algorithm;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.Service.ExcelUtil;
 import com.example.knapsack.adapter.GoodsAdapter;
 import com.example.knapsack.adapter.ResultAdapter;
@@ -38,7 +39,6 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
     private String excelFilePath = "";
     private String[] colNames = new String[]{"物品重量", "物品价值", "物品价值重量比","物品是否被选用"};
     String[] pess = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    String logmes;
     private static final int REQUEST = 112;
     String name;
     String table;
@@ -71,7 +71,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
         resultAdapter = new ResultAdapter(BacktrackingActivity.this,goods);
         listView.setAdapter(resultAdapter);
 
-
+        DLLog.i("回溯算法界面", "以成功进入回溯算法界面，用户采用回溯算法解决0-1背包问题，已成功求解");
 
     }
 
@@ -109,6 +109,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 intentt.putExtra("table",table);
                 intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentt);
+                DLLog.i("回溯算法界面", "用户进行页面跳转操作，跳转至贪心算法界面");
                 break;
             case R.id.im_main:
                 Intent intentm = new Intent(BacktrackingActivity.this,MainActivity.class);
@@ -116,6 +117,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("回溯算法界面", "用户进行页面跳转操作，跳转至主界面");
                 break;
             case R.id.im_ycsf:
                 Intent intenty = new Intent(BacktrackingActivity.this,GeneticActivity.class);
@@ -123,6 +125,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 intenty.putExtra("table",table);
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intenty);
+                DLLog.i("回溯算法界面", "用户进行页面跳转操作，跳转至遗传算法界面");
                 break;
             case R.id.im_dtgh:
                 Intent intentd = new Intent(BacktrackingActivity.this,DynamicActivity.class);
@@ -130,6 +133,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 intentd.putExtra("table",table);
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentd);
+                DLLog.i("回溯算法界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 break;
             case R.id.im_paint:
                 Intent intentp = new Intent(BacktrackingActivity.this,BubbleChartActivity.class);
@@ -137,6 +141,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentp);
+                DLLog.i("回溯算法界面", "用户进行页面跳转操作，跳转至绘制图像界面");
                 break;
             case R.id.button_save:
                 export();

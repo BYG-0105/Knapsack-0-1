@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.DLLog;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -65,7 +66,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
         name = intent.getStringExtra("username");
         table = intent.getStringExtra("table");
         goods = intent.getParcelableArrayListExtra("list");
-
+        DLLog.i("绘制条形图界面", "以成功进入绘制条形图界面，用户根据0-1背包问题数据集绘制并查看其条形图");
         initView();
     }
 
@@ -231,34 +232,42 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
             case R.id.btn_show_values:
                 for (IDataSet set : mBarChart.getData().getDataSets())
                     set.setDrawValues(!set.isDrawValuesEnabled());
-
                 mBarChart.invalidate();
+                DLLog.i("绘制图像界面", "用户进行显示顶点值操作");
                 break;
             //x轴动画
             case R.id.btn_anim_x:
                 mBarChart.animateX(3000);
+                DLLog.i("绘制图像界面", "用户进行显示x轴动画操作");
                 break;
             //y轴动画
             case R.id.btn_anim_y:
                 mBarChart.animateY(3000);
+                DLLog.i("绘制图像界面", "用户进行显示y轴动画操作");
                 break;
             //xy轴动画
             case R.id.btn_anim_xy:
                 mBarChart.animateXY(3000, 3000);
+                DLLog.i("绘制图像界面", "用户进行显示xy轴动画操作");
                 break;
             //保存到sd卡
             case R.id.btn_save_pic:
                 if (mBarChart.saveToGallery("title" + System.currentTimeMillis(), 50)) {
                     Toast.makeText(getApplicationContext(), "保存成功",
                             Toast.LENGTH_SHORT).show();
+                    DLLog.i("绘制图像界面", "用户进行保存图像操作，已成功保存");
                 } else
-                    Toast.makeText(getApplicationContext(), "保存失败",
-                            Toast.LENGTH_SHORT).show();
+                {
+                    Toast.makeText(getApplicationContext(), "保存失败", Toast.LENGTH_SHORT).show();
+                    DLLog.e("绘制图像界面", "用户进行保存图像操作，保存失败");
+                }
+
                 break;
             //切换自动最大最小值
             case R.id.btn_auto_mix_max:
                 mBarChart.setAutoScaleMinMaxEnabled(!mBarChart.isAutoScaleMinMaxEnabled());
                 mBarChart.notifyDataSetChanged();
+                DLLog.i("绘制图像界面", "用户进行切换自动最大最小值操作");
                 break;
             //高亮显示
             case R.id.btn_actionToggleHighlight:
@@ -267,6 +276,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                             !mBarChart.getData().isHighlightEnabled());
                     mBarChart.invalidate();
                 }
+                DLLog.i("绘制图像界面", "用户进行高亮显示操作");
                 break;
             //显示边框
             case R.id.btn_actionToggleBarBorders:
@@ -275,12 +285,14 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                             .setBarBorderWidth(set.getBarBorderWidth() == 1.f ? 0.f
                                     : 1.f);
                 mBarChart.invalidate();
+                DLLog.i("绘制图像界面", "用户进行显示边框操作");
                 break;
             case R.id.im_tanxin:
                 Intent intentt = new Intent(BarChartActivity.this,GreedyActivity.class);
                 intentt.putExtra("username",name);
                 intentt.putExtra("table",table);
                 startActivity(intentt);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至贪心算法界面");
                 break;
             case R.id.im_main:
                 Intent intentm = new Intent(BarChartActivity.this,MainActivity.class);
@@ -288,6 +300,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至主界面");
                 break;
             case R.id.im_ycsf:
                 Intent intenty = new Intent(BarChartActivity.this,GeneticActivity.class);
@@ -295,6 +308,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                 intenty.putExtra("table",table);
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intenty);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至遗传算法界面");
                 break;
             case R.id.im_dtgh:
                 Intent intentd = new Intent(BarChartActivity.this,DynamicActivity.class);
@@ -302,6 +316,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                 intentd.putExtra("table",table);
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentd);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 break;
             case R.id.im_huisu:
                 Intent intentp = new Intent(BarChartActivity.this,BacktrackingActivity.class);
@@ -309,6 +324,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentp);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 break;
             case R.id.button_s2:
                 Intent intents = new Intent(BarChartActivity.this,BubbleChartActivity.class);
@@ -316,6 +332,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
                 intents.putExtra("table",table);
                 intents.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intents);
+                DLLog.i("绘制条形图界面", "用户进行页面跳转操作，跳转至绘制气泡图界面");
                 break;
         }
     }

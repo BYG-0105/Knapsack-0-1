@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
 import com.example.knapsack.Service.Algorithm;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.Service.ExcelUtil;
 import com.example.knapsack.Service.Gene;
 import com.example.knapsack.adapter.ResultAdapter;
@@ -63,6 +64,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
         result.setText("运行时间为："+(double)Time/1000000000+" s");
         resultAdapter = new ResultAdapter(GeneticActivity.this,goods);
         listView.setAdapter(resultAdapter);
+        DLLog.i("遗传算法界面", "以成功进入遗传算法界面，用户采用遗传算法解决0-1背包问题，已成功求解");
     }
 
 
@@ -100,6 +102,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
                 intentt.putExtra("table",table);
                 intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentt);
+                DLLog.i("遗传算法界面", "用户进行页面跳转操作，跳转至贪心算法界面");
                 break;
             case R.id.im_main:
                 Intent intentm = new Intent(GeneticActivity.this,MainActivity.class);
@@ -107,6 +110,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("遗传算法界面", "用户进行页面跳转操作，跳转至主界面");
                 break;
             case R.id.im_huisu:
                 Intent intenty = new Intent(GeneticActivity.this,BacktrackingActivity.class);
@@ -114,6 +118,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
                 intenty.putExtra("table",table);
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intenty);
+                DLLog.i("遗传算法界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 break;
             case R.id.im_dtgh:
                 Intent intentd = new Intent(GeneticActivity.this,DynamicActivity.class);
@@ -121,6 +126,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
                 intentd.putExtra("table",table);
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentd);
+                DLLog.i("遗传算法界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 break;
             case R.id.im_paint:
                 Intent intentp = new Intent(GeneticActivity.this,PaintActivity.class);
@@ -128,6 +134,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentp);
+                DLLog.i("遗传算法界面", "用户进行页面跳转操作，跳转至绘制图像界面");
                 break;
             case R.id.button_save:
                 export();

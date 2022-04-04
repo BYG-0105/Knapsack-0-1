@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.knapsack.Bean.Loginuser;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.database.DBManager;
 import com.example.knapsack.database.MD5Utils;
 import com.example.knapsack.database.Users;
@@ -26,7 +27,6 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
     private Button btnzc;
     private Button btnmm;
     private Button  finish;
-    String logmes;
     //数据库变量
     public DBManager dbHelper;
     private SQLiteDatabase database;
@@ -64,10 +64,12 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
             {
                 name.setText(nameinfo);
                 pwd.setText(pwdinfo);
+                DLLog.i("登录界面", "用户进行记住密码操作，已成功记住密码");
             }
             else
             {
                 showToast("记住密码失败，请重新输入！！！");
+                DLLog.w("登录界面", "用户进行记住密码操作，记住密码失败");
             }
         }
         if(bauto)
@@ -80,10 +82,12 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                 Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
                 intent1.putExtra("username", nameinfo);
                 startActivity(intent1);
+                DLLog.i("登录界面", "用户进行自动登录操作，已成功自动登录");
             }
             else
             {
                 showToast("自动登录失败，请重新输入！！！");
+                DLLog.w("登录界面", "用户进行自动登录操作，自动登录失败");
             }
         }
 
@@ -125,6 +129,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                 //showToast(loginuser.toString());
                 if (loginuser == null) {
                     showToast("该用户名不存在！！！请先注册！");
+                    DLLog.e("登录界面", "用户进行登录操作，用户未注册");
                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                     startActivity(intent);
                     finish();
@@ -151,13 +156,14 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
 
                     showToast("登录成功");
-
+                    DLLog.i("登录界面", "用户进行登录操作，用户已成功登录");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("username", username);
                     startActivity(intent);
                     finish();
                 } else {
                     showToast("账号或密码错误");
+                    DLLog.e("登录界面", "用户进行登录操作，输入账号或密码错误");
                 }
                 break;
             case R.id.btn_zc:

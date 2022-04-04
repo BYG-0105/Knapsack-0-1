@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.DLLog;
 import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -60,7 +61,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
         name = intent.getStringExtra("username");
         table = intent.getStringExtra("table");
         goods = intent.getParcelableArrayListExtra("list");
-
+        DLLog.i("绘制气泡图界面", "以成功进入绘制气泡图界面，用户根据0-1背包问题数据集绘制并查看其气泡图");
         initView();
     }
     //初始化View
@@ -161,9 +162,6 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
             dataSets.add(set1);
         }
 
-
-
-
         BubbleData data = new BubbleData(dataSets);
         data.setDrawValues(false);
         data.setValueTextSize(8f);
@@ -188,32 +186,41 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 for (IDataSet set : mBubbleChart.getData().getDataSets())
                     set.setDrawValues(!set.isDrawValuesEnabled());
                 mBubbleChart.invalidate();
+                DLLog.i("绘制图像界面", "用户进行显示顶点值操作");
                 break;
             //x轴动画
             case R.id.btn_anim_x:
                 mBubbleChart.animateX(3000);
+                DLLog.i("绘制图像界面", "用户进行显示x轴动画操作");
                 break;
             //y轴动画
             case R.id.btn_anim_y:
                 mBubbleChart.animateY(3000);
+                DLLog.i("绘制图像界面", "用户进行显示y轴动画操作");
                 break;
             //xy轴动画
             case R.id.btn_anim_xy:
                 mBubbleChart.animateXY(3000, 3000);
+                DLLog.i("绘制图像界面", "用户进行显示xy轴动画操作");
                 break;
             //保存到sd卡
             case R.id.btn_save_pic:
-                if (mBubbleChart.saveToGallery("title" + System.currentTimeMillis(), 50)) {
+                if (mBubbleChart.saveToGallery("title" + System.currentTimeMillis(), 50))
+                {
                     Toast.makeText(getApplicationContext(), "保存成功",
                             Toast.LENGTH_SHORT).show();
-                } else
+                    DLLog.i("绘制图像界面", "用户进行保存图像操作，已成功保存");
+                } else {
                     Toast.makeText(getApplicationContext(), "保存失败",
                             Toast.LENGTH_SHORT).show();
+                    DLLog.e("绘制图像界面", "用户进行保存图像操作，保存失败");
+                }
                 break;
             //切换自动最大最小值
             case R.id.btn_auto_mix_max:
                 mBubbleChart.setAutoScaleMinMaxEnabled(!mBubbleChart.isAutoScaleMinMaxEnabled());
                 mBubbleChart.notifyDataSetChanged();
+                DLLog.i("绘制图像界面", "用户进行切换自动最大最小值操作");
                 break;
             //高亮显示
             case R.id.btn_actionToggleHighlight:
@@ -222,6 +229,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                             !mBubbleChart.getData().isHighlightEnabled());
                     mBubbleChart.invalidate();
                 }
+                DLLog.i("绘制图像界面", "用户进行高亮显示操作");
                 break;
             case R.id.im_tanxin:
                 Intent intentt = new Intent(BubbleChartActivity.this,GreedyActivity.class);
@@ -229,6 +237,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 intentt.putExtra("table",table);
                 intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentt);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至贪心算法界面");
                 break;
             case R.id.im_main:
                 Intent intentm = new Intent(BubbleChartActivity.this,MainActivity.class);
@@ -236,6 +245,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至主界面");
                 break;
             case R.id.im_ycsf:
                 Intent intenty = new Intent(BubbleChartActivity.this,GeneticActivity.class);
@@ -243,6 +253,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 intenty.putExtra("table",table);
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intenty);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至遗传算法界面");
                 break;
             case R.id.im_dtgh:
                 Intent intentd = new Intent(BubbleChartActivity.this,DynamicActivity.class);
@@ -250,6 +261,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 intentd.putExtra("table",table);
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentd);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 break;
             case R.id.im_huisu:
                 Intent intentp = new Intent(BubbleChartActivity.this,BacktrackingActivity.class);
@@ -257,6 +269,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentp);
+                DLLog.i("绘制图像界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 break;
             case R.id.button_s:
                 Intent intents = new Intent(BubbleChartActivity.this,BarChartActivity.class);
@@ -264,6 +277,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
                 intents.putExtra("table",table);
                 intents.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intents);
+                DLLog.i("绘制气泡图界面", "用户进行页面跳转操作，跳转至绘制条形图界面");
                 break;
         }
     }

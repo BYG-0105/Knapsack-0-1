@@ -10,10 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.Bean.Loginuser;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.database.MD5Utils;
 import com.example.knapsack.database.Users;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ChangePwdActivity extends AppCompatActivity {
@@ -22,6 +27,9 @@ public class ChangePwdActivity extends AppCompatActivity {
     private Button btnxg,btnfinish;
     private ImageView back;
     String namess;
+    String table;
+    public List<Goods> goods = new ArrayList<>();//用于存放商品列表
+
     private MD5Utils md5Utils ;
     private Users users = new Users();
     @Override
@@ -38,7 +46,8 @@ public class ChangePwdActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         namess = intent.getStringExtra("username");
-
+        table = intent.getStringExtra("table");
+        goods = intent.getParcelableArrayListExtra("list");
         btnxg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,18 +57,22 @@ public class ChangePwdActivity extends AppCompatActivity {
                if(names.length() <= 0 )
                {
                    showToast("账号为空！！！请重新输入");
+                   DLLog.e("修改密码界面", "用户进行修改密码操作，未输入账号");
                }
                if(pwds.length() <= 0 )
                {
                    showToast("密码为空！！！请重新输入");
+                   DLLog.e("修改密码界面", "用户进行修改密码操作，未输入密码");
                }
                if(nums.isEmpty())
                {
                    showToast("联系方式为空！！！请重新输入");
+                   DLLog.e("修改密码界面", "用户进行修改密码操作，未输入联系方式");
                }
                else if(users.userquery(names) == null)
                {
                    showToast("账号不存在！！！检查账号是否正确！");
+                   DLLog.e("修改密码界面", "用户进行修改密码操作，账号不存在");
                }
                else if(users.userquery(names) != null)
                {
@@ -68,6 +81,7 @@ public class ChangePwdActivity extends AppCompatActivity {
                    if(users.updateData(id,names,pwds) && loginuser.getNum().equals(nums))
                    {
                        showToast("密码修改成功！！！");
+                       DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功");
                        if(namess == null)
                        {
                            Intent intent = new Intent(ChangePwdActivity.this,LoginActivity.class);
@@ -84,6 +98,7 @@ public class ChangePwdActivity extends AppCompatActivity {
                    }
                    else if(loginuser.getNum() !=  nums)
                    {
+                       DLLog.e("修改密码界面", "用户进行修改密码操作，输入联系方式错误");
                       showToast("输入联系方式错误！！！请重新输入！！！");
                    }
                }

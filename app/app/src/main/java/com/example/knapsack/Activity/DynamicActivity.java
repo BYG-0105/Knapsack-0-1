@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
 import com.example.knapsack.Service.Algorithm;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.Service.ExcelUtil;
 import com.example.knapsack.adapter.ResultAdapter;
 
@@ -63,6 +64,7 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
         result.setText("运行时间为："+(double)Time/1000000000+" s");
         resultAdapter = new ResultAdapter(DynamicActivity.this,goods);
         listView.setAdapter(resultAdapter);
+        DLLog.i("动态规划算法界面", "以成功进入动态规划算法界面，用户采用动态规划算法解决0-1背包问题，已成功求解");
     }
 
     public void  initview()
