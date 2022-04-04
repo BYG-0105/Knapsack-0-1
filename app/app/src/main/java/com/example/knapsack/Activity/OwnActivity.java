@@ -58,7 +58,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
                 intentmes.putExtra("table",table);
                 intentmes.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentmes);
-                DLLog.i("个人中心界面", "用户进行页面跳转操作，跳转至注册界面");
+                DLLog.i("个人中心界面", "用户进行页面跳转操作，跳转至修改信息界面");
                 break;
             case R.id.button_finish:
                 Intent intentf = new Intent(OwnActivity.this,MainActivity.class);

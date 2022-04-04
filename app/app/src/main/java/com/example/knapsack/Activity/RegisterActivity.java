@@ -87,11 +87,13 @@ public class RegisterActivity extends AppCompatActivity {
                     if(UsersqLiteHelper.userquery(name) != null)
                     {
                         showToast("该账户已存在！！！");
+                        DLLog.i("注册界面", "用户进行注册操作，提示账户已存在");
 
                     }
                     else if(name.length() <= 0 || pwd.length() <= 0 || nums.length() <= 0)
                     {
                         showToast("账号，密码，电话号码为必填项，请重新填写！！！");
+                        DLLog.i("注册界面", "用户进行注册操作，提示账号，密码，电话号码为必填项");
                     }
                     else if(UsersqLiteHelper.userquery(name) == null && UsersqLiteHelper.insertData(name,pwd,citys,ages,uGender,styleString.toString(),nums))
                     {
@@ -99,10 +101,12 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                         startActivity(intent);
                         finish();
+                        DLLog.i("注册界面", "用户进行注册操作，已成功注册，跳转至登录界面");
                     }
                     else
                     {
                         showToast("注册失败！！！请重新尝试注册");
+                        DLLog.i("注册界面", "用户进行注册操作，注册失败");
                     }
                 }
                 if(btn_register.getText().equals("修改"))
@@ -112,11 +116,12 @@ public class RegisterActivity extends AppCompatActivity {
                     if(UsersqLiteHelper.updatemesData(id,name,pwd,citys,ages,uGender,nums))
                     {
                         showToast("修改成功！");
-
+                        DLLog.i("修改个人信息界面", "用户进行修改信息操作，修改成功");
                     }
                     else
                     {
                         showToast("修改失败！！！请重新尝试注册");
+                        DLLog.i("修改个人信息界面", "用户进行修改信息操作，修改失败");
                     }
                     Intent intent = new Intent(RegisterActivity.this,OwnActivity.class);
                     intent.putExtra("username",name);
