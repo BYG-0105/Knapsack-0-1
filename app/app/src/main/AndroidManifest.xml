@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Knapsack">
         <activity
+            android:name=".Activity.BubbleChartActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.GeneticActivity"
             android:exported="true" />
         <activity
