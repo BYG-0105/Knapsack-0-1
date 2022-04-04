@@ -126,7 +126,7 @@ public class GreedyActivity extends AppCompatActivity implements View.OnClickLis
                 DLLog.i("贪心算法界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 break;
             case R.id.im_paint:
-                Intent intentp = new Intent(GreedyActivity.this,PaintActivity.class);
+                Intent intentp = new Intent(GreedyActivity.this,BubbleChartActivity.class);
                 intentp.putExtra("username",name);
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);

@@ -33,9 +33,6 @@
             android:name=".Activity.DynamicActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.PaintActivity"
-            android:exported="true" />
-        <activity
             android:name=".Activity.BacktrackingActivity"
             android:exported="true" />
         <activity

@@ -126,7 +126,7 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
                 DLLog.i("动态规划算法界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 break;
             case R.id.im_paint:
-                Intent intentp = new Intent(DynamicActivity.this,PaintActivity.class);
+                Intent intentp = new Intent(DynamicActivity.this,BubbleChartActivity.class);
                 intentp.putExtra("username",name);
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
