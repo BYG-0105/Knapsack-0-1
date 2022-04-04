@@ -123,11 +123,9 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
         for (int i = 1; i < goods.size(); i++) {
             float x = (float) goods.get(i).getWeight();
             float y = (float) goods.get(i).getValue();
-            float size = (float) goods.get(i).getValue();
-
             if(goods.get(i).getSelect() .equals("Yes") )
             {
-            yVals1.add(new BubbleEntry(x, y, ));
+            yVals1.add(new BubbleEntry(x, y, 200));
             }
            else
             {
