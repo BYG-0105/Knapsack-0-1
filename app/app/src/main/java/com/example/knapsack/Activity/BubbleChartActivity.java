@@ -56,7 +56,6 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bubble);
         Intent intent = getIntent();

@@ -61,7 +61,6 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
     public List<Goods> goods = new ArrayList<>();//用于存放商品列表
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barchar);
         Intent intent = getIntent();

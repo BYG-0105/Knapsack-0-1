@@ -46,7 +46,6 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
     private String excelFilePath = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic);
 

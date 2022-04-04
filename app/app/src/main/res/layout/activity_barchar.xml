@@ -40,7 +40,9 @@
             android:id="@+id/button_s2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="查看散点图" />
+            android:background="@android:color/transparent"
+            android:text="查看散点图"
+            android:textColor="#8E5DDC" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/mBarChart"
@@ -58,28 +60,36 @@
                 android:id="@+id/btn_show_values"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="顶点显示值"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_anim_x"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="X轴动画"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_anim_y"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="Y轴动画"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_anim_xy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="XY轴动画"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
 
@@ -95,28 +105,36 @@
                 android:id="@+id/btn_save_pic"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="保存到相册"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_auto_mix_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="自动最大最小值"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_actionToggleHighlight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="高亮显示"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_actionToggleBarBorders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="显示边框"
+                android:textColor="#8E5DDC"
                 android:textSize="12sp" />
 
 

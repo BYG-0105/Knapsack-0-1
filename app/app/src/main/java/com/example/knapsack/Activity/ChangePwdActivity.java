@@ -36,7 +36,6 @@ public class ChangePwdActivity extends AppCompatActivity {
     private Users users = new Users();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwd);
         DLLog.i("修改密码界面", "以成功进入修改密码界面");
