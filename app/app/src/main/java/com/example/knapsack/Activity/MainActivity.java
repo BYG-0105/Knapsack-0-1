@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //控件定义
     private ImageView back,change;
     private ImageView tanxin,huisu,dtgh,gene,paint;
-    private Button que,jisuan;
+    private Button jisuan;
     private TextView username;
     private ListView listView;
 
@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dtgh = findViewById(R.id.im_dtgh);
         gene = findViewById(R.id.im_ycsf);
         paint = findViewById(R.id.im_paint);
-        que = findViewById(R.id.que);
         jisuan = findViewById(R.id.cal);
         listView  = findViewById(R.id.list);
         username = findViewById(R.id.user_name);
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dtgh.setOnClickListener(this);
         gene.setOnClickListener(this);
         paint.setOnClickListener(this);
-        que.setOnClickListener(this);
         jisuan.setOnClickListener(this);
 
     }

@@ -32,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText username;
     private EditText userpwd;
     private List<String> styleString=new ArrayList<String>();
-    private CheckBox stylehy,styleyg,styleom,stylegd;
     private Users UsersqLiteHelper = new Users();
     private RadioGroup radioGroup;
     String uGender  = "男";
@@ -82,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String citys = city.getText().toString();
                 String ages = age.getText().toString();
                 String nums = num.getText().toString();
-                checkBoxlis();
                 if(btn_register.getText().equals("注册"))
                 {
 
@@ -174,47 +172,12 @@ public class RegisterActivity extends AppCompatActivity {
         btn_cancal = (Button)findViewById(R.id.btn_cancal) ;
         username = (EditText) findViewById(R.id.etPersonName);
         userpwd = (EditText) findViewById(R.id.etPwd);
-        stylehy = (CheckBox)findViewById(R.id.checkBoxhy);
-        styleyg = (CheckBox)findViewById(R.id.checkBoxyg);
-        styleom = (CheckBox)findViewById(R.id.checkBoxom);
-        stylegd = (CheckBox)findViewById(R.id.checkBoxgd);
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
         city = (TextView)findViewById(R.id.etCity);
         age = (TextView) findViewById(R.id.etAge);
         num = (TextView) findViewById(R.id.etNum);
 
     }
-    private void checkBoxlis() {
-        if(stylehy.isChecked())
-        {
-            styleString.add(stylehy.getText().toString());
-        }
-        else {
-            styleString.remove(stylehy.getText().toString());
-        }
-        if(styleyg.isChecked())
-        {
-            styleString.add(styleyg.getText().toString());
-        }
-        else {
-            styleString.remove(styleyg.getText().toString());
-        }
-        if (styleom.isChecked())
-        {
-            styleString.add(styleom.getText().toString());
-        }
-        else {
-            styleString.remove(styleom.getText().toString());
-        }
-        if (stylegd.isChecked())
-        {
-            styleString.add(stylegd.getText().toString());
-        }
-        else {
-            styleString.remove(stylegd.getText().toString());
-        }
-    }
-
 
 
     public void showToast(String message)

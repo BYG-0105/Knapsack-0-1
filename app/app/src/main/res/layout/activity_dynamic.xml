@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/filower"
+        android:background="@drawable/img"
         android:orientation="vertical">
 
         <LinearLayout
@@ -48,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="#270945" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +62,8 @@
                     android:layout_height="40dp"
                     android:layout_margin="15dp"
                     android:gravity="center"
-                    android:text="物品编号" />
+                    android:text="物品编号"
+                    android:textColor="#8E5DDC" />
 
                 <TextView
                     android:id="@+id/g_weight"
@@ -69,7 +71,8 @@
                     android:layout_height="40dp"
                     android:layout_margin="15dp"
                     android:gravity="center"
-                    android:text="物品重量" />
+                    android:text="物品重量"
+                    android:textColor="#8E5DDC" />
 
                 <TextView
                     android:id="@+id/g_value"
@@ -77,7 +80,8 @@
                     android:layout_height="40dp"
                     android:layout_margin="15dp"
                     android:gravity="center"
-                    android:text="物品价值" />
+                    android:text="物品价值"
+                    android:textColor="#8E5DDC" />
 
                 <TextView
                     android:id="@+id/g_select"
@@ -85,7 +89,8 @@
                     android:layout_height="40dp"
                     android:layout_margin="15dp"
                     android:gravity="center"
-                    android:text="是否被选中" />
+                    android:text="是否被选中"
+                    android:textColor="#8E5DDC" />
 
             </LinearLayout>
 
@@ -93,12 +98,13 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="0行元素分别表示：背包总容量       物品数目        背包最大价值" />
+                android:text="0行元素分别表示：背包总容量       物品数目        背包最大价值"
+                android:textColor="#270945" />
 
             <ListView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="400dp" />
 
         </LinearLayout>
 
@@ -107,7 +113,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="保存结果" />
+            android:text="保存结果"
+            android:textColor="#8E5DDC" />
 
         <LinearLayout
             android:layout_width="match_parent"

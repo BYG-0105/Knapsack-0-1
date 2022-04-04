@@ -225,57 +225,6 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvLove"
-                android:layout_width="18dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center|center_horizontal"
-                android:paddingLeft="10dp"
-                android:text="歌曲风格"
-                android:textColor="@color/purple_500"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:id="@+id/checkBoxhy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="华语"
-                android:textColor="#9673D5" />
-
-            <CheckBox
-                android:id="@+id/checkBoxgd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="古典"
-                android:textColor="#9673D5" />
-
-            <CheckBox
-                android:id="@+id/checkBoxom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="欧美"
-                android:textColor="#9673D5" />
-
-            <CheckBox
-                android:id="@+id/checkBoxyg"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="摇滚"
-                android:textColor="#9673D5" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
             <Button
                 android:id="@+id/btn_register"
                 android:layout_width="wrap_content"

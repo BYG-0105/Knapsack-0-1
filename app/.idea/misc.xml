@@ -3,18 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_backtracking.xml" value="0.125" />
+        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_backtracking.xml" value="0.25" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_barchar.xml" value="0.165" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_bubble.xml" value="0.25" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_change_pwd.xml" value="0.15760869565217392" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_dynamic.xml" value="0.25" />
-        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_genetic.xml" value="0.14947916666666666" />
-        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_greedy.xml" value="0.14947916666666666" />
-        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_login.xml" value="0.15760869565217392" />
-        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_main.xml" value="0.15760869565217392" />
+        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_genetic.xml" value="0.25" />
+        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_greedy.xml" value="0.25" />
+        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_login.xml" value="0.335" />
+        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_own.xml" value="0.15760869565217392" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_paint.xml" value="0.335" />
-        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_register.xml" value="0.15760869565217392" />
+        <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/activity_register.xml" value="0.335" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/select_item_layout.xml" value="0.15760869565217392" />
         <entry key="..\:/2021-2022/YDYY/Knapsack-0-1/app/app/src/main/res/layout/suan_item_layout.xml" value="0.15760869565217392" />
         <entry key="..\:/2021-2022/YDYY/Knapsack/app/app/src/main/res/layout/activity_backtracking.xml" value="0.335" />
