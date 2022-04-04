@@ -120,33 +120,49 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
     private void setData() {
         ArrayList<BubbleEntry> yVals1 = new ArrayList<BubbleEntry>();
         ArrayList<BubbleEntry> yVals2 = new ArrayList<BubbleEntry>();
-        for (int i = 1; i < goods.size(); i++) {
-            float x = (float) goods.get(i).getWeight();
-            float y = (float) goods.get(i).getValue();
-            if(goods.get(i).getSelect() .equals("Yes") )
-            {
-            yVals1.add(new BubbleEntry(x, y, 200));
-            }
-           else
-            {
-                yVals2.add(new BubbleEntry(x, y, 100));
-            }
+        ArrayList<IBubbleDataSet> dataSets = new ArrayList<IBubbleDataSet>();
+        if(goods.get(0).getSelect() != null)
+        {
+            for (int i = 1; i < goods.size(); i++) {
+                float x = (float) goods.get(i).getWeight();
+                float y = (float) goods.get(i).getValue();
+                if(goods.get(i).getSelect() .equals("Yes") )
+                {
+                    yVals1.add(new BubbleEntry(x, y, 200));
+                }
+                else
+                {
+                    yVals2.add(new BubbleEntry(x, y, 100));
+                }
 
+            }
+            BubbleDataSet set1 = new BubbleDataSet(yVals1, "选中");
+            //可以谁知alpha
+            set1.setColor(ColorTemplate.COLORFUL_COLORS[3]);
+            set1.setDrawValues(true);
+            BubbleDataSet set2 = new BubbleDataSet(yVals2, "未选中");
+            set2.setColor(ColorTemplate.COLORFUL_COLORS[1]);
+            set2.setDrawValues(true);
+
+            dataSets.add(set1);
+            dataSets.add(set2);
+        }
+        else
+        {
+            for (int i = 1; i < goods.size(); i++) {
+                float x = (float) goods.get(i).getWeight();
+                float y = (float) goods.get(i).getValue();
+                yVals1.add(new BubbleEntry(x, y, 200));
+            }
+            BubbleDataSet set1 = new BubbleDataSet(yVals1, "物品");
+            //可以谁知alpha
+            set1.setColor(ColorTemplate.COLORFUL_COLORS[3]);
+            set1.setDrawValues(true);
+            dataSets.add(set1);
         }
 
 
-        BubbleDataSet set1 = new BubbleDataSet(yVals1, "选中");
-        //可以谁知alpha
-        set1.setColor(ColorTemplate.COLORFUL_COLORS[3]);
-        set1.setDrawValues(true);
-        BubbleDataSet set2 = new BubbleDataSet(yVals2, "未选中");
-        set2.setColor(ColorTemplate.COLORFUL_COLORS[1]);
-        set2.setDrawValues(true);
 
-
-        ArrayList<IBubbleDataSet> dataSets = new ArrayList<IBubbleDataSet>();
-        dataSets.add(set1);
-        dataSets.add(set2);
 
         BubbleData data = new BubbleData(dataSets);
         data.setDrawValues(false);

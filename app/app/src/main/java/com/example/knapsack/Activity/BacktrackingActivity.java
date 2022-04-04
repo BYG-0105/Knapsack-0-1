@@ -38,7 +38,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
     private String excelFilePath = "";
     private String[] colNames = new String[]{"物品重量", "物品价值", "物品价值重量比","物品是否被选用"};
     String[] pess = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-
+    String logmes;
     private static final int REQUEST = 112;
     String name;
     String table;

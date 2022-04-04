@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
 import com.example.knapsack.Service.Algorithm;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.adapter.GoodsAdapter;
 import com.example.knapsack.database.Beibao;
 import com.example.knapsack.database.DBManager;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int back1 = 0;
     String name;
     String table;
+    String logmes;
     //定义用户和商品对象
     Users users = new Users();
     Beibao beibao = new Beibao();
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initview();
         Intent intent = getIntent();
         name = intent.getStringExtra("username");
+
         username.setText("欢迎您！"+name);
         dbHelper = new DBManager(this);
         dbHelper.openDatabase();
@@ -75,8 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         goodsAdapter = new GoodsAdapter(MainActivity.this,goods);
         listView.setAdapter(goodsAdapter);
+        logmes = intent.getStringExtra("log");
        // database.close();
-
+        String tag = "登录";
+        String msg ="cehnggggg";
+        DLLog.i(tag, "[" + "]" + msg);
     }
 
     //初始化界面控件

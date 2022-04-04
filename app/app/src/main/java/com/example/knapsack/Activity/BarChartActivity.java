@@ -55,6 +55,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
     private Button buttons;
     String name;
     String table;
+    String logmes;
     public List<Goods> goods = new ArrayList<>();//用于存放商品列表
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
     private Button btnzc;
     private Button btnmm;
     private Button  finish;
+    String logmes;
     //数据库变量
     public DBManager dbHelper;
     private SQLiteDatabase database;
