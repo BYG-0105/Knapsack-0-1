@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own);
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class ChangePwdActivity extends AppCompatActivity {
     private Users users = new Users();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwd);
         DLLog.i("修改密码界面", "以成功进入修改密码界面");

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -45,6 +46,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//这行代码必须写在setContentView()方法的前面
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genetic);
         Intent intent = getIntent();
