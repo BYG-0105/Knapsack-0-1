@@ -108,8 +108,8 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         YAxis yl = mBubbleChart.getAxisLeft();
-        yl.setSpaceTop(30f);
-        yl.setSpaceBottom(30f);
+        yl.setSpaceTop(20f);
+        yl.setSpaceBottom(20f);
         yl.setDrawZeroLine(false);
         mBubbleChart.getAxisRight().setEnabled(false);
         XAxis xl = mBubbleChart.getXAxis();
@@ -124,13 +124,14 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
             float x = (float) goods.get(i).getWeight();
             float y = (float) goods.get(i).getValue();
             float size = (float) goods.get(i).getValue();
+
             if(goods.get(i).getSelect() .equals("Yes") )
             {
-                yVals1.add(new BubbleEntry(x, y, size));
+            yVals1.add(new BubbleEntry(x, y, ));
             }
            else
             {
-                yVals2.add(new BubbleEntry(x, y, size));
+                yVals2.add(new BubbleEntry(x, y, 100));
             }
 
         }
@@ -138,7 +139,7 @@ public class BubbleChartActivity extends AppCompatActivity implements OnChartVal
 
         BubbleDataSet set1 = new BubbleDataSet(yVals1, "选中");
         //可以谁知alpha
-        set1.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+        set1.setColor(ColorTemplate.COLORFUL_COLORS[3]);
         set1.setDrawValues(true);
         BubbleDataSet set2 = new BubbleDataSet(yVals2, "未选中");
         set2.setColor(ColorTemplate.COLORFUL_COLORS[1]);
