@@ -99,6 +99,7 @@ public class GreedyActivity extends AppCompatActivity implements View.OnClickLis
                 intentt.putExtra("table",table);
                 intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentt);
+                DLLog.i("贪心算法界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 break;
             case R.id.im_main:
                 Intent intentm = new Intent(GreedyActivity.this,MainActivity.class);
@@ -106,6 +107,7 @@ public class GreedyActivity extends AppCompatActivity implements View.OnClickLis
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("贪心算法界面", "用户进行页面跳转操作，跳转至主界面");
                 break;
             case R.id.im_ycsf:
                 Intent intenty = new Intent(GreedyActivity.this,GeneticActivity.class);
@@ -113,6 +115,7 @@ public class GreedyActivity extends AppCompatActivity implements View.OnClickLis
                 intenty.putExtra("table",table);
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intenty);
+                DLLog.i("贪心算法界面", "用户进行页面跳转操作，跳转至遗传算法界面");
                 break;
             case R.id.im_dtgh:
                 Intent intentd = new Intent(GreedyActivity.this,DynamicActivity.class);
@@ -120,6 +123,7 @@ public class GreedyActivity extends AppCompatActivity implements View.OnClickLis
                 intentd.putExtra("table",table);
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentd);
+                DLLog.i("贪心算法界面", "用户进行页面跳转操作，跳转至动态规划算法界面");
                 break;
             case R.id.im_paint:
                 Intent intentp = new Intent(GreedyActivity.this,PaintActivity.class);
@@ -127,9 +131,11 @@ public class GreedyActivity extends AppCompatActivity implements View.OnClickLis
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentp);
+                DLLog.i("贪心算法界面", "用户进行页面跳转操作，跳转至绘制图像界面");
                 break;
             case R.id.button_save:
                 export();
+                DLLog.i("贪心算法界面", "用户进行结果文件导出操作，文件已成功导出");
                 break;
         }
     }

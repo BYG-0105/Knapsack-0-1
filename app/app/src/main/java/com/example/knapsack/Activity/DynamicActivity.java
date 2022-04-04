@@ -99,6 +99,7 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
                 intentt.putExtra("table",table);
                 intentt.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentt);
+                DLLog.i("动态规划算法界面", "用户进行页面跳转操作，跳转至贪心算法界面");
                 break;
             case R.id.im_main:
                 Intent intentm = new Intent(DynamicActivity.this,MainActivity.class);
@@ -106,6 +107,7 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("动态规划算法界面", "用户进行页面跳转操作，跳转至主界面");
                 break;
             case R.id.im_ycsf:
                 Intent intenty = new Intent(DynamicActivity.this,GeneticActivity.class);
@@ -113,6 +115,7 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
                 intenty.putExtra("table",table);
                 intenty.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intenty);
+                DLLog.i("动态规划算法界面", "用户进行页面跳转操作，跳转至遗传算法界面");
                 break;
             case R.id.im_huisu:
                 Intent intentd = new Intent(DynamicActivity.this,BacktrackingActivity.class);
@@ -120,6 +123,7 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
                 intentd.putExtra("table",table);
                 intentd.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentd);
+                DLLog.i("动态规划算法界面", "用户进行页面跳转操作，跳转至回溯算法界面");
                 break;
             case R.id.im_paint:
                 Intent intentp = new Intent(DynamicActivity.this,PaintActivity.class);
@@ -127,9 +131,11 @@ public class DynamicActivity extends AppCompatActivity  implements View.OnClickL
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentp);
+                DLLog.i("动态规划算法界面", "用户进行页面跳转操作，跳转至绘制图像界面");
                 break;
             case R.id.button_save:
                 export();
+                DLLog.i("动态规划算法界面", "用户进行结果文件导出操作，文件已成功导出");
                 break;
         }
     }

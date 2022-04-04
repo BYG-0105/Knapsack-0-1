@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.DLLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
                 intentm.putExtra("table",table);
                 intentm.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentm);
+                DLLog.i("个人中心界面", "用户进行页面跳转操作，跳转至修改密码界面");
                 break;
             case R.id.btn_xgmes:
                 Intent intentmes = new Intent(OwnActivity.this,RegisterActivity.class);
@@ -56,6 +58,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
                 intentmes.putExtra("table",table);
                 intentmes.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentmes);
+                DLLog.i("个人中心界面", "用户进行页面跳转操作，跳转至注册界面");
                 break;
             case R.id.button_finish:
                 Intent intentf = new Intent(OwnActivity.this,MainActivity.class);
@@ -63,6 +66,7 @@ public class OwnActivity extends AppCompatActivity implements View.OnClickListen
                 intentf.putExtra("table",table);
                 intentf.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 startActivity(intentf);
+                DLLog.i("个人中心界面", "用户进行页面跳转操作，跳转至主界面界面");
                 break;
         }
 

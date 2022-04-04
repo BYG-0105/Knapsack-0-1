@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.knapsack.Bean.Loginuser;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.DLLog;
 import com.example.knapsack.database.DBManager;
 import com.example.knapsack.database.MD5Utils;
 import com.example.knapsack.database.Users;
@@ -46,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-
+        DLLog.i("注册界面", "以成功进入注册界面");
         initview();
         Intent intent = getIntent();
         String name = intent.getStringExtra("username");

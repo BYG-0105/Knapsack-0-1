@@ -2,6 +2,7 @@ package com.example.knapsack.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ public class ChangePwdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pwd);
-
+        DLLog.i("修改密码界面", "以成功进入修改密码界面");
         name = (EditText) findViewById(R.id.e_namesc);
         pwd = (EditText) findViewById(R.id.e_pwdsc);
         btnxg = (Button)findViewById(R.id.btn_c);
@@ -81,19 +82,22 @@ public class ChangePwdActivity extends AppCompatActivity {
                    if(users.updateData(id,names,pwds) && loginuser.getNum().equals(nums))
                    {
                        showToast("密码修改成功！！！");
-                       DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功");
                        if(namess == null)
                        {
                            Intent intent = new Intent(ChangePwdActivity.this,LoginActivity.class);
                            finish();
                            startActivity(intent);
+                           DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功，跳转至登录界面");
                        }
                        else
                        {
                            Intent intent = new Intent(ChangePwdActivity.this,MainActivity.class);
                            intent.putExtra("username",names);
+                           intent.putExtra("table",table);
+                           intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                            finish();
                            startActivity(intent);
+                           DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功，跳转至主界面");
                        }
                    }
                    else if(loginuser.getNum() !=  nums)
@@ -111,15 +115,20 @@ public class ChangePwdActivity extends AppCompatActivity {
                 if(namess == null)
                 {
                     Intent intent = new Intent(ChangePwdActivity.this,LoginActivity.class);
+
                     finish();
                     startActivity(intent);
+                    DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功，跳转至登录界面");
                 }
                 else
                 {
                     Intent intent = new Intent(ChangePwdActivity.this,OwnActivity.class);
                     finish();
                     intent.putExtra("username",namess);
+                    intent.putExtra("table",table);
+                    intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                     startActivity(intent);
+                    DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功，跳转至个人中心界面");
                 }
             }
         });
@@ -131,13 +140,17 @@ public class ChangePwdActivity extends AppCompatActivity {
                     Intent intent = new Intent(ChangePwdActivity.this,LoginActivity.class);
                     finish();
                     startActivity(intent);
+                    DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功，跳转至登录界面");
                 }
                 else
                 {
                     Intent intent = new Intent(ChangePwdActivity.this,OwnActivity.class);
                     finish();
                     intent.putExtra("username",namess);
+                    intent.putExtra("table",table);
+                    intent.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                     startActivity(intent);
+                    DLLog.i("修改密码界面", "用户进行修改密码操作，密码修改成功，跳转至个人中心界面");
                 }
             }
         });

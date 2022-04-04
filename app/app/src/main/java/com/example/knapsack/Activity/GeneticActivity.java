@@ -138,6 +138,7 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.button_save:
                 export();
+                DLLog.i("遗传算法界面", "用户进行结果文件导出操作，文件已成功导出");
                 break;
         }
     }

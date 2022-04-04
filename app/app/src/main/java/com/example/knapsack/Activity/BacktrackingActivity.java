@@ -145,6 +145,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.button_save:
                 export();
+                DLLog.i("回溯算法界面", "用户进行结果文件导出操作，文件已成功导出");
                 break;
         }
     }
