@@ -121,7 +121,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
         // 只有1天的时间间隔
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(7);
-        xAxis.setAxisMaximum(50f);
+        xAxis.setAxisMaximum(120f);
         xAxis.setAxisMinimum(0f);
 
 
@@ -133,14 +133,14 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
         leftAxis.setSpaceTop(15f);
         //这个替换setStartAtZero(true)
         leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(50f);
+        leftAxis.setAxisMaximum(120f);
 
         YAxis rightAxis = mBarChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
         rightAxis.setLabelCount(8, false);
         rightAxis.setSpaceTop(15f);
         rightAxis.setAxisMinimum(0f);
-        rightAxis.setAxisMaximum(50f);
+        rightAxis.setAxisMaximum(120f);
 
         // 设置标示，就是那个一组y的value的
         Legend l = mBarChart.getLegend();
@@ -154,7 +154,7 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
         l.setFormSize(9f);
         //大小
         l.setTextSize(11f);
-        l.setXEntrySpace(4f);
+        l.setXEntrySpace(50f);
 
         //模拟数据
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
