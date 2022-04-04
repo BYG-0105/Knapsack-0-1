@@ -15,12 +15,16 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.knapsack.Bean.Goods;
 import com.example.knapsack.R;
+import com.example.knapsack.Service.Algorithm;
 import com.example.knapsack.Service.ExcelUtil;
+import com.example.knapsack.Service.Gene;
+import com.example.knapsack.adapter.ResultAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,6 +40,8 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
     private String[] colNames = new String[]{"物品重量", "物品价值", "物品价值重量比","物品是否被选用"};
     String[] pess = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private String excelFilePath = "";
+    public ResultAdapter resultAdapter;
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,18 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
         table = intent.getStringExtra("table");
         goods = intent.getParcelableArrayListExtra("list");
         initview();
+
+
+        long start=System.nanoTime();
+        Gene gaKnapsack = new Gene(goods.get(0).getWeight(), 200, 2000, 0.5f, 0.05f, 0.1f, goods);
+        gaKnapsack.solve();
+
+        long end=System.nanoTime();
+        long Time=end-start;
+
+        result.setText("运行时间为："+(double)Time/1000000000+" s");
+        resultAdapter = new ResultAdapter(GeneticActivity.this,goods);
+        listView.setAdapter(resultAdapter);
     }
 
 
@@ -59,8 +77,8 @@ public class GeneticActivity extends AppCompatActivity implements View.OnClickLi
         dtgh = findViewById(R.id.im_dtgh);
         paint = findViewById(R.id.im_paint);
         button = findViewById(R.id.button_save);
-        result = findViewById(R.id.tv_result);
-
+        result = findViewById(R.id.tv_result3);
+        listView = findViewById(R.id.list);
 
         back.setOnClickListener(this);
 

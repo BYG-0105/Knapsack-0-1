@@ -23,8 +23,8 @@ public class PaintActivity extends AppCompatActivity implements View.OnClickList
     Button button;
     private ImageView tanxin,main,huisu,gene,dtgh,back;
     public List<Goods> goods = new ArrayList<>();//用于存放商品列表
-    List<int []> x = new ArrayList<>();
-    List<int []> y = new ArrayList<>();
+    List<int []> xData = new ArrayList<>();
+    List<int []> yData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,16 @@ public class PaintActivity extends AppCompatActivity implements View.OnClickList
         name = intent.getStringExtra("username");
         table = intent.getStringExtra("table");
         goods = intent.getParcelableArrayListExtra("list");
-
+        int [] x = new int[10000];
+        int [] y = new int[10000];
+        for(int i = 1;i < goods.size();i++)
+        {
+            x[i-1] = goods.get(i).getWeight();
+            y[i-1] = (int) goods.get(i).getValue();
+        }
+        xData.add(x);
+        yData.add(y);
+        ScatterView scatterView = new ScatterView(this,yData,xData);
         initview();
     }
 

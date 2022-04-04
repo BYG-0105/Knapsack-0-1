@@ -1,5 +1,7 @@
 package com.example.knapsack.Service;
 
+import com.example.knapsack.Bean.Goods;
+
 import java.io.File;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class Gene {
     private float irate; //交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
     private float arate1; //变异率（某个个体发生变异的可能性）
     private float arate2; //对于确定发生变异的个体每位发生变异的可能性
-    private File data = null; //物品重量和物品价值的数据文件
+    public List<Goods> goods = new ArrayList<>();//用于存放商品列表
 
     private boolean[][] population = null; //上一代种群
     private float[] fitness = null; //种群的适应度
@@ -51,24 +53,28 @@ public class Gene {
      * @param irate ： 交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
      * @param arate1 ：变异率（某个个体发生变异的可能性）
      * @param arate2 ：对于确定发生变异的个体每位发生变异的可能性
-     * @param file : 物品重量和物品价值的数据文件
      */
-    public Gene(float capacity, int scale, int maxgen, float irate, float arate1, float arate2, File data) {
+    public Gene(float capacity, int scale, int maxgen, float irate, float arate1, float arate2, List<Goods> goods) {
         this.capacity = capacity;
         this.scale = scale;
         this.maxgen = maxgen;
         this.irate = irate;
         this.arate1 = arate1;
         this.arate2 = arate2;
-        this.data = data;
+        this.goods = goods;
         random = new Random(System.currentTimeMillis());
     }
 
     //读取物品重量和物品价值数据
     private void readDate() {
-        List<Object> tmp = Reader.read(data);
-        weight = (float[])tmp.get(0);
-        profit = (float[])tmp.get(1);
+        weight = new float[(int)goods.get(0).getValue()];
+        profit = new float[(int)goods.get(0).getValue()];
+        for(int i = 1;i < goods.size();i++)
+        {
+            weight[i-1] = (float)goods.get(i).getWeight();
+            profit[i-1] = (float) goods.get(i).getValue();
+            goods.get(i).setSelect("No");
+        }
         len = weight.length;
     }
 
@@ -237,24 +243,17 @@ public class Gene {
 
         int totalWeight = 0;
         for(int i = 0; i < bestUnit.length; i++) {
+            System.out.println("bestUnit.length:" + bestUnit.length);
+            System.out.println("goods:" + goods.size());
+
             if(bestUnit[i]){
-                totalWeight += weight[i];
+
+                totalWeight += weight[i]; goods.get(i+1).setSelect("Yes");
             }
         }
+        goods.get(0).setSelect(bestFitness+"");
         System.out.println("total profit:" + bestFitness);
         System.out.println("total weight:" + totalWeight);
     }
 
-    public static void main(String[] args) {
-        File data = new File(".//data//data1.txt");
-        //背包容量
-        //种群规模
-        //最大代数
-        //交叉率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）
-        //变异率（某个个体发生变异的可能性）
-        //对于确定发生变异的个体每位发生变异的可能性
-        //物品重量和物品价值的数据文件
-        Gene gaKnapsack = new Gene(1000, 200, 2000, 0.5f, 0.05f, 0.1f, data);
-        gaKnapsack.solve();
-    }
 }
