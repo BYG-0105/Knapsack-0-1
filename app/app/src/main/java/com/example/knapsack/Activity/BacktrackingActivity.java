@@ -132,7 +132,7 @@ public class BacktrackingActivity extends AppCompatActivity implements View.OnCl
                 startActivity(intentd);
                 break;
             case R.id.im_paint:
-                Intent intentp = new Intent(BacktrackingActivity.this,PaintActivity.class);
+                Intent intentp = new Intent(BacktrackingActivity.this,BubbleChartActivity.class);
                 intentp.putExtra("username",name);
                 intentp.putExtra("table",table);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);

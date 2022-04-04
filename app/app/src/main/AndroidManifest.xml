@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Knapsack">
         <activity
+            android:name=".Activity.BarChartActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.BubbleChartActivity"
             android:exported="true" />
         <activity

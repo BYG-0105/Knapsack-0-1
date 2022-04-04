@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentd);
                 break;
             case R.id.im_paint:
-                Intent intentp = new Intent(MainActivity.this,PaintActivity.class);
+                Intent intentp = new Intent(MainActivity.this,BubbleChartActivity.class);
                 intentp.putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) goods);
                 intentp.putExtra("username",name);
                 intentp.putExtra("table",table);

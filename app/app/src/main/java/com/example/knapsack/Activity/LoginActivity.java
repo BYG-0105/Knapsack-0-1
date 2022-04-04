@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                 name.setText(nameinfo);
                 pwd.setText(pwdinfo);
                 Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
+                intent1.putExtra("username", nameinfo);
                 startActivity(intent1);
             }
             else
