@@ -3,6 +3,7 @@ from django.urls import path
 
 from myadmin.views import index
 from myadmin.views import user
+from myadmin.views import beibao
 
 urlpatterns = [
     path('', index.index, name='myadmin_index'),  # 后台首页
@@ -14,4 +15,6 @@ urlpatterns = [
     path('user/del/<int:uid>', user.delete, name='myadmin_user_delete'),  # 删除
     path('user/edit/<int:uid>', user.edit, name='myadmin_user_edit'),  # 加载编辑表单
     path('user/update/<int:uid>', user.update, name='myadmin_user_update'),  # 执行编辑
+
+    path('beibao/', beibao.index, name='myadmin_beibao_index'),  # 浏览
 ]
