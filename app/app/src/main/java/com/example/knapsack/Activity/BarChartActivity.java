@@ -115,9 +115,6 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
         mBarChart.setPinchZoom(false);
         //是否显示表格颜色
         mBarChart.setDrawGridBackground(false);
-
-
-
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
@@ -126,9 +123,6 @@ public class BarChartActivity extends AppCompatActivity implements OnChartValueS
         xAxis.setLabelCount(7);
         xAxis.setAxisMaximum(120f);
         xAxis.setAxisMinimum(0f);
-
-
-
 
         YAxis leftAxis = mBarChart.getAxisLeft();
         leftAxis.setLabelCount(8, false);

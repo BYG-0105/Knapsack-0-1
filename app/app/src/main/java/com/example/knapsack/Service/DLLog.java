@@ -134,18 +134,6 @@ public class DLLog {
             e.printStackTrace();
         }
     }
-
-    /**
-     * 删除制定的日志文件
-     * */
-    public static void delFile() {
-        String needDelFiel = logfile.format(getDateBefore());
-        File file = new File(LOG_PATH_SDCARD_DIR, needDelFiel + LOGFILENAME);
-        if (file.exists()) {
-            file.delete();
-        }
-    }
-
     /**
      * 得到现在时间前的几天日期，用来得到需要删除的日志文件名
      * */
@@ -156,5 +144,15 @@ public class DLLog {
         now.set(Calendar.DATE, now.get(Calendar.DATE)
                 - SDCARD_LOG_FILE_SAVE_DAYS);
         return now.getTime();
+    }
+    /**
+     * 删除制定的日志文件
+     * */
+    public static void delFile() {
+        String needDelFiel = logfile.format(getDateBefore());
+        File file = new File(LOG_PATH_SDCARD_DIR, needDelFiel + LOGFILENAME);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }

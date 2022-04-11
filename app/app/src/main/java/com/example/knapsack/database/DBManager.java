@@ -34,6 +34,7 @@ public class DBManager {
     private SQLiteDatabase openDatabase(String dbfile) {
         try {
             if (!(new File(dbfile).exists())) {
+                //打开数据库文件
                 InputStream is = this.context.getResources().getAssets().open("Knapsack.db"); //欲导入的数据库
                 FileOutputStream fos = new FileOutputStream(dbfile);
                 int BUFFER_SIZE = 1028 * 10;

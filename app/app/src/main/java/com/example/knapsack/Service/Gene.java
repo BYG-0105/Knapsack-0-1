@@ -252,8 +252,7 @@ public class Gene {
             }
         }
         goods.get(0).setSelect(bestFitness+"");
-        System.out.println("total profit:" + bestFitness);
-        System.out.println("total weight:" + totalWeight);
+
     }
 
 }
